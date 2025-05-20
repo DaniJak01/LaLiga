@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PJNFRCXR");
+    </script>
+    <!-- End Google Tag Manager -->
+    <script src="AppMeasurement.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Gracias</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="thank-you.css" />
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PJNFRCXR"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <nav>
+        <div class="nav-side-left"></div>
+        <div class="nav-center">
+          <a href="clubs.html" class="nav-link">Clubs</a>
+          <a href="index.html">
+            <img
+              width="60px"
+              src="./images/LALIGA_logo.png"
+              alt="LALIGA logotipo"
+              class="logo"
+            />
+          </a>
+          <a href="shop.html" class="nav-link">Tienda</a>
+        </div>
+        <div class="nav-side-right">
+          <a href="cart.html" class="cart">
+            <img width="40px" src="./images/carrito.png" alt="Carrito" />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="thank-you-container">
+        <img
+          src="./images/checkmark.avif"
+          alt="Compra completada"
+          class="check-icon"
+        />
+        <h1>¡Gracias por tu compra!</h1>
+
+        <div class="content-grid">
+          <div id="resumen" class="card"></div>
+          <div id="items"></div>
+        </div>
+
+        <a href="shop.html" class="btn">Volver a la tienda</a>
+      </div>
+    </main>
+    <footer>LALIGA 24/25</footer>
+
+    <script>
+      const resumen = JSON.parse(sessionStorage.getItem("resumenPedido"));
+
+      if (!resumen) {
+        document.body.innerHTML = "<p>No hay resumen disponible.</p>";
+      } else {
+        const resumenDiv = document.getElementById("resumen");
+        resumenDiv.innerHTML = `
+        <strong>Pedido:</strong> ${resumen.transactionId}<br>
+        <strong>Cliente:</strong> ${resumen.name} ${resumen.lastName}<br>
+        <strong>Dirección:</strong> ${resumen.address}<br>
+        <strong>Método de pago:</strong> ${resumen.paymentMethod}<br>
+        <strong>Total:</strong> ${resumen.totalValue
+          .toFixed(2)
+          .replace(".", ",")} €<br>
+      `;
+
+        const itemsDiv = document.getElementById("items");
+        resumen.items.forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "item";
+          div.innerHTML = `
+          <p><strong>${item.name}</strong></p>
+          <p>Cantidad: ${item.quantity}</p>
+          <p>Talla: ${item.size}</p>
+          <p>Dorsal: ${
+            item.wantsDorsal
+              ? `Número: ${item.dorsal_number}, Nombre: ${item.dorsal_name}`
+              : "Sin dorsal"
+          }</p>
+          <p>Precio: ${parseFloat(item.price)
+            .toFixed(2)
+            .replace(".", ",")} €</p>
+        `;
+          itemsDiv.appendChild(div);
+        });
+
+        //sessionStorage.removeItem("resumenPedido");
+      }
+    </script>
+  </body>
+</html>

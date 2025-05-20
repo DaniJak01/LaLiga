@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PJNFRCXR");
+    </script>
+    <!-- End Google Tag Manager -->
+    <script src="AppMeasurement.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Producto</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="product.css" />
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PJNFRCXR"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <nav>
+        <div class="nav-side-left"></div>
+        <div class="nav-center">
+          <a href="clubs.html" class="nav-link">Clubs</a>
+          <a href="index.html">
+            <img
+              width="60px"
+              src="./images/LALIGA_logo.png"
+              alt="LALIGA logotipo"
+              class="logo"
+            />
+          </a>
+          <a href="shop.html" class="nav-link">Tienda</a>
+        </div>
+        <div class="nav-side-right">
+          <a href="cart.html" class="cart">
+            <img width="40px" src="./images/carrito.png" alt="Carrito" />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="product-container">
+        <div class="product-info">
+          <img id="productImg" src="" alt="Imagen del producto" />
+        </div>
+
+        <div class="product-form">
+          <h2 id="product-name">Cargando producto...</h2>
+          <form id="order-form">
+            <div class="form-row-inline">
+              <div class="form-group">
+                <label for="quantity">Cantidad:</label>
+                <div class="quantity-control">
+                  <button type="button" class="qty-btn" id="decrease">−</button>
+                  <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    min="1"
+                    value="1"
+                    required
+                  />
+                  <button type="button" class="qty-btn" id="increase">+</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="size">Talla:</label>
+                <select id="size" name="size" required>
+                  <option value="">Selecciona</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                </select>
+              </div>
+            </div>
+
+            <div
+              id="customization-options"
+              class="customization-extra"
+              style="display: none"
+            >
+              <div class="form-group">
+                <div class="radio-inline">
+                  <label
+                    ><input
+                      type="radio"
+                      name="dorsalOption"
+                      value="no"
+                      checked
+                    />
+                    Sin dorsal</label
+                  >
+                  <label
+                    ><input type="radio" name="dorsalOption" value="yes" /> Con
+                    dorsal</label
+                  >
+                </div>
+              </div>
+
+              <div
+                id="dorsal-fields"
+                class="dorsal-extra"
+                style="display: none"
+              >
+                <div class="form-group">
+                  <label for="dorsal-number">Número:</label>
+                  <input
+                    type="number"
+                    id="dorsal-number"
+                    name="dorsal-number"
+                    min="0"
+                    max="99"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="dorsal-name">Nombre:</label>
+                  <input
+                    type="text"
+                    id="dorsal-name"
+                    name="dorsal-name"
+                    maxlength="20"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="total-pay">
+              <p id="product-price">Cargando precio...</p>
+            </div>
+
+            <div class="button-group">
+              <button id="cart" type="submit" class="btn-cart">
+                Añadir al carrito
+              </button>
+              <button id="checkout" type="submit" class="btn-buy">
+                Comprar ahora
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer>LALIGA 24/25</footer>
+    <script src="product.js"></script>
+  </body>
+</html>

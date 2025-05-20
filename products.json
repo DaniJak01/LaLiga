@@ -1,0 +1,502 @@
+[
+  {
+    "id": "alaves-shirt-1",
+    "name": "1ª Camiseta Deportivo Alavés 24/25",
+    "img": "./images/shirts/alaves-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Alavés",
+    "color": ["Azul", "Blanco"]
+  },
+  {
+    "id": "athletic-shirt-1",
+    "name": "1ª Camiseta Athletic Club 24/25",
+    "img": "./images/shirts/athletic-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Athletic Club",
+    "color": ["Rojo", "Blanco"]
+  },
+  {
+    "id": "atletico-shirt-1",
+    "name": "1ª Camiseta Atlético de Madrid 24/25",
+    "img": "./images/shirts/atletico-shirt.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Atlético de Madrid",
+    "color": ["Rojo", "Blanco"]
+  },
+  {
+    "id": "barcelona-shirt-1",
+    "name": "1ª Camiseta FC Barcelona 24/25",
+    "img": "./images/shirts/barcelona-shirt.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Barcelona",
+    "color": ["Azul", "Rojo"]
+  },
+  {
+    "id": "betis-shirt-1",
+    "name": "1ª Camiseta Real Betis 24/25",
+    "img": "./images/shirts/betis-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Betis",
+    "color": ["Verde", "Blanco"]
+  },
+  {
+    "id": "celta-shirt-1",
+    "name": "1ª Camiseta Celta de Vigo 24/25",
+    "img": "./images/shirts/celta-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Celta de Vigo",
+    "color": ["Azul"]
+  },
+  {
+    "id": "espanyol-shirt-1",
+    "name": "1ª Camiseta RCD Espanyol 24/25",
+    "img": "./images/shirts/espanyol-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Espanyol",
+    "color": ["Azul", "Blanco"]
+  },
+  {
+    "id": "getafe-shirt-1",
+    "name": "1ª Camiseta Getafe CF 24/25",
+    "img": "./images/shirts/getafe-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Getafe",
+    "color": ["Azul"]
+  },
+  {
+    "id": "girona-shirt-1",
+    "name": "1ª Camiseta Girona FC 24/25",
+    "img": "./images/shirts/girona-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Girona",
+    "color": ["Rojo"]
+  },
+  {
+    "id": "laspalmas-shirt-1",
+    "name": "1ª Camiseta Las Palmas 24/25",
+    "img": "./images/shirts/laspalmas-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Las Palmas",
+    "color": ["Amarillo"]
+  },
+  {
+    "id": "leganes-shirt-1",
+    "name": "1ª Camiseta CD Leganés 24/25",
+    "img": "./images/shirts/leganes-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Leganés",
+    "color": ["Azul", "Blanco"]
+  },
+  {
+    "id": "mallorca-shirt-1",
+    "name": "1ª Camiseta RCD Mallorca 24/25",
+    "img": "./images/shirts/mallorca-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "RCD Mallorca",
+    "color": ["Rojo"]
+  },
+  {
+    "id": "osasuna-shirt-1",
+    "name": "1ª Camiseta Osasuna 24/25",
+    "img": "./images/shirts/osasuna-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Osasuna",
+    "color": ["Rojo"]
+  },
+  {
+    "id": "rayo-shirt-1",
+    "name": "1ª Camiseta Rayo Vallecano 24/25",
+    "img": "./images/shirts/rayo-shirt.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Rayo Vallecano",
+    "color": ["Rojo", "Blanco"]
+  },
+  {
+    "id": "madrid-shirt-1",
+    "name": "1ª Camiseta Real Madrid 24/25",
+    "img": "./images/shirts/madrid-shirt.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Real Madrid",
+    "color": ["Blanco"]
+  },
+  {
+    "id": "realsociedad-shirt-1",
+    "name": "1ª Camiseta Real Sociedad 24/25",
+    "img": "./images/shirts/realsociedad-shirt.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Real Sociedad",
+    "color": ["Azul", "Blanco"]
+  },
+  {
+    "id": "sevilla-shirt-1",
+    "name": "1ª Camiseta Sevilla FC 24/25",
+    "img": "./images/shirts/sevilla-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Sevilla",
+    "color": ["Blanco"]
+  },
+  {
+    "id": "valencia-shirt-1",
+    "name": "1ª Camiseta Valencia CF 24/25",
+    "img": "./images/shirts/valencia-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Valencia",
+    "color": ["Blanco"]
+  },
+  {
+    "id": "valladolid-shirt-1",
+    "name": "1ª Camiseta Real Valladolid 24/25",
+    "img": "./images/shirts/valladolid-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Valladolid",
+    "color": ["Morado", "Blanco"]
+  },
+  {
+    "id": "villarreal-shirt-1",
+    "name": "1ª Camiseta Villarreal CF 24/25",
+    "img": "./images/shirts/villarreal-shirt.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Villarreal",
+    "color": ["Amarillo"]
+  },
+  {
+    "id": "alaves-shirt-2",
+    "name": "2ª Camiseta Deportivo Alavés 24/25",
+    "img": "./images/shirts/alaves-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Alavés",
+    "color": ["Azul", "Blanco"]
+  },
+  {
+    "id": "athletic-shirt-2",
+    "name": "2ª Camiseta Athletic Club 24/25",
+    "img": "./images/shirts/athletic-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Athletic Club",
+    "color": ["Azul"]
+  },
+  {
+    "id": "atletico-shirt-2",
+    "name": "2ª Camiseta Atlético de Madrid 24/25",
+    "img": "./images/shirts/atletico-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Atlético de Madrid",
+    "color": ["Azul"]
+  },
+  {
+    "id": "barcelona-shirt-2",
+    "name": "2ª Camiseta FC Barcelona 24/25",
+    "img": "./images/shirts/barcelona-shirt-2.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Barcelona",
+    "color": ["Negro"]
+  },
+  {
+    "id": "betis-shirt-2",
+    "name": "2ª Camiseta Real Betis 24/25",
+    "img": "./images/shirts/betis-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Betis",
+    "color": ["Verde"]
+  },
+  {
+    "id": "celta-shirt-2",
+    "name": "2ª Camiseta Celta de Vigo 24/25",
+    "img": "./images/shirts/celta-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Celta de Vigo",
+    "color": ["Azul"]
+  },
+  {
+    "id": "espanyol-shirt-2",
+    "name": "2ª Camiseta RCD Espanyol 24/25",
+    "img": "./images/shirts/espanyol-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Espanyol",
+    "color": ["Morado"]
+  },
+  {
+    "id": "getafe-shirt-2",
+    "name": "2ª Camiseta Getafe CF 24/25",
+    "img": "./images/shirts/getafe-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Getafe",
+    "color": ["Rojo"]
+  },
+  {
+    "id": "girona-shirt-2",
+    "name": "2ª Camiseta Girona FC 24/25",
+    "img": "./images/shirts/girona-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Girona",
+    "color": ["Negro"]
+  },
+  {
+    "id": "laspalmas-shirt-2",
+    "name": "2ª Camiseta Las Palmas 24/25",
+    "img": "./images/shirts/laspalmas-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Las Palmas",
+    "color": ["Azul"]
+  },
+  {
+    "id": "leganes-shirt-2",
+    "name": "2ª Camiseta CD Leganés 24/25",
+    "img": "./images/shirts/leganes-shirt-2.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Leganés",
+    "color": ["Verde"]
+  },
+  {
+    "id": "mallorca-shirt-2",
+    "name": "2ª Camiseta RCD Mallorca 24/25",
+    "img": "./images/shirts/mallorca-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "RCD Mallorca",
+    "color": ["Amarillo"]
+  },
+  {
+    "id": "osasuna-shirt-2",
+    "name": "2ª Camiseta Osasuna 24/25",
+    "img": "./images/shirts/osasuna-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Osasuna",
+    "color": ["Blanco"]
+  },
+  {
+    "id": "rayo-shirt-2",
+    "name": "2ª Camiseta Rayo Vallecano 24/25",
+    "img": "./images/shirts/rayo-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Rayo Vallecano",
+    "color": ["Rojo", "Blanco"]
+  },
+  {
+    "id": "madrid-shirt-2",
+    "name": "2ª Camiseta Real Madrid 24/25",
+    "img": "./images/shirts/madrid-shirt-2.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Real Madrid",
+    "color": ["Naranja"]
+  },
+  {
+    "id": "realsociedad-shirt-2",
+    "name": "2ª Camiseta Real Sociedad 24/25",
+    "img": "./images/shirts/realsociedad-shirt-2.png",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Real Sociedad",
+    "color": ["Dorado"]
+  },
+  {
+    "id": "sevilla-shirt-2",
+    "name": "2ª Camiseta Sevilla FC 24/25",
+    "img": "./images/shirts/sevilla-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Sevilla",
+    "color": ["Rojo"]
+  },
+  {
+    "id": "valencia-shirt-2",
+    "name": "2ª Camiseta Valencia CF 24/25",
+    "img": "./images/shirts/valencia-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Valencia",
+    "color": ["Negro"]
+  },
+  {
+    "id": "valladolid-shirt-2",
+    "name": "2ª Camiseta Real Valladolid 24/25",
+    "img": "./images/shirts/valladolid-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Valladolid",
+    "color": ["Blanco"]
+  },
+  {
+    "id": "villarreal-shirt-2",
+    "name": "2ª Camiseta Villarreal CF 24/25",
+    "img": "./images/shirts/villarreal-shirt-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Camiseta",
+    "team": "Villarreal",
+    "color": ["Azul"]
+  },
+  {
+    "id": "athletic-pants",
+    "name": "Pantalones 1ª Equipación Athletic Club 24/25",
+    "img": "./images/pants/athletic-pants.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Athletic Club",
+    "color": ["AmarilNegrolo"]
+  },
+  {
+    "id": "atletico-pants",
+    "name": "Pantalones 1ª Equipación Atlético de Madrid 24/25",
+    "img": "./images/pants/atletico-pants.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Atlético de Madrid",
+    "color": ["Azul"]
+  },
+  {
+    "id": "barcelona-pants",
+    "name": "Pantalones 1ª Equipación FC Barcelona 24/25",
+    "img": "./images/pants/barcelona-pants.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Barcelona",
+    "color": ["Azul"]
+  },
+  {
+    "id": "barcelona-pants-2",
+    "name": "Pantalones 2ª Equipación FC Barcelona 24/25",
+    "img": "./images/pants/barcelona-pants-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Barcelona",
+    "color": ["Negro"]
+  },
+  {
+    "id": "betis-pants",
+    "name": "Pantalones 1ª Equipación Real Betis 24/25",
+    "img": "./images/pants/betis-pants.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Betis",
+    "color": ["Blanco"]
+  },
+  {
+    "id": "madrid-pants",
+    "name": "Pantalones 1ª Equipación Real Madrid 24/25",
+    "img": "./images/pants/madrid-pants.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Real Madrid",
+    "color": ["Blanco"]
+  },
+  {
+    "id": "madrid-pants-2",
+    "name": "Pantalones 2ª Equipación Real Madrid 24/25",
+    "img": "./images/pants/madrid-pants-2.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Real Madrid",
+    "color": ["Naranja"]
+  },
+  {
+    "id": "osasuna-pants",
+    "name": "Pantalones 1ª Equipación Osasuna 24/25",
+    "img": "./images/pants/osasuna-pants.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Osasuna",
+    "color": ["Azul"]
+  },
+  {
+    "id": "realsociedad-pants",
+    "name": "Pantalones 1ª Equipación Real Sociedad 24/25",
+    "img": "./images/pants/realsociedad-pants.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Real Sociedad",
+    "color": ["Blanco"]
+  },
+  {
+    "id": "valencia-pants",
+    "name": "Pantalones 1ª Equipación Valencia 24/25",
+    "img": "./images/pants/valencia-pants.jpg",
+    "price": "89,90",
+    "customizable": true,
+    "category": "Pantalones",
+    "team": "Valencia",
+    "color": ["Negro"]
+  }
+]

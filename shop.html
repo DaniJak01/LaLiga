@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PJNFRCXR");
+    </script>
+    <!-- End Google Tag Manager -->
+    <script src="AppMeasurement.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Tienda</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="shop.css" />
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PJNFRCXR"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <nav>
+        <div class="nav-side-left"></div>
+        <div class="nav-center">
+          <a href="clubs.html" class="nav-link">Clubs</a>
+          <a href="index.html">
+            <img
+              width="60px"
+              src="./images/LALIGA_logo.png"
+              alt="LALIGA logotipo"
+              class="logo"
+            />
+          </a>
+          <a href="shop.html" class="nav-link">Tienda</a>
+        </div>
+        <div class="nav-side-right">
+          <a href="cart.html" class="cart">
+            <img width="40px" src="./images/carrito.png" alt="Carrito" />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <h2>Tienda</h2>
+      <div class="shop-container">
+        <div class="left-column">
+          <div class="filter-group">
+            <label for="team-filter">Equipo -</label>
+            <select id="team-filter">
+              <option value="all"></option>
+            </select>
+
+            <label for="type-filter">Tipo -</label>
+            <select id="type-filter">
+              <option value="all"></option>
+            </select>
+
+            <label for="color-filter">Color -</label>
+            <select id="color-filter">
+              <option value="all"></option>
+            </select>
+          </div>
+        </div>
+        <div class="products"></div>
+      </div>
+    </main>
+    <footer>LALIGA 24/25</footer>
+    <script src="shop.js"></script>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+.club-container {
+    margin: 3rem;
+}
+
+.logo-container {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 3rem;
+    transition: all 0.3s ease;
+}
+
+.logo-container img {
+    max-width: 150px;
+    margin-right: 1rem;
+    border-radius: 10px;
+}
+
+.logo-container h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.logo-container:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.club-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    min-width: 250px;
+    width: 22%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+}
+
+.feature-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1rem;
+}
+
+.feature-card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.feature-card p {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+    font-weight: bold;
+}
+
+.feature-card:hover h2 {
+    color: #ff4b44;
+}
+
+.feature-card:hover p {
+    color: #ff4b44;
+}
+
+.feature-card img {
+    width: 90%;
+    height: auto;
+    object-fit: cover;
+}
+
+#stadium-card, #shirt-card{
+    cursor: pointer;
+}
+
+.feature-icon-trophy img {
+    height: 10%;
+    width: 10%;
+}
+
+a.shirt {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media screen and (max-width: 768px) {
+    .club-details {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-card {
+        width: 80%;
+    }
+}
+
+@media (max-width: 450px) {
+    .logo-container h1{
+        font-size: 1.5rem;
+    }
+    .logo-container img {
+        transform: scale(.75);
+    }
+}
+

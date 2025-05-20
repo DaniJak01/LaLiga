@@ -1,0 +1,84 @@
+.thank-you-container {
+  margin: 20px auto;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+
+.check-icon {
+  width: 80px;
+  margin-bottom: 20px;
+  animation: pop 0.4s ease-out;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.content-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.card,
+.item {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.item {
+  margin-bottom: 10px;
+}
+
+.item p,
+.card p {
+  margin: 6px 0;
+}
+
+.card strong,
+.item strong {
+  color: #333;
+}
+
+.card p:last-child {
+  color: #388e3c;
+  font-weight: bold;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 24px;
+  background-color: #1e88e5;
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #1565c0;
+}
+
+/* Responsivo */
+@media (min-width: 768px) {
+  .content-grid {
+    flex-direction: row;
+    justify-content: center;
+  }
+}

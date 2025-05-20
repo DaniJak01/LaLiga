@@ -1,0 +1,133 @@
+.cart-container {
+    padding: 30px;
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.cart-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-summary {
+    margin-top: 40px;
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.cart-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.cart-buttons a, .cart-buttons button {
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.cart-buttons a {
+    background-color: #f0b239;
+    color: #333;
+    border: 2px solid #f0a10a;
+}
+
+.cart-buttons a:hover {
+    background-color: #e09e1f;
+    color: #fff;
+    border-color: #e09e1f;
+}
+
+.cart-buttons button {
+    background-color: #28a745;
+    color: #333;
+    border: 2px solid #218838;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+.cart-buttons button:hover {
+    background-color: #218838;
+    color: #fff;
+    border-color: #1e7e34;
+}
+
+.delete-btn {
+    padding: 6px 12px;
+    background-color: #e93b3d;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.delete-btn:hover {
+    background-color: #c7312e;
+    transform: scale(1.05);
+}
+
+.delete-btn:focus {
+    outline: none;
+}
+
+.cart-item img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.cart-item div {
+    flex-grow: 1;
+}
+
+.cart-item p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #555;
+}
+
+.cart-item p strong {
+    color: #333;
+}
+
+.cart-container h2 {
+    font-size: 2em;
+    margin: 0;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

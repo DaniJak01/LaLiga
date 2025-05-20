@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PJNFRCXR");
+    </script>
+    <!-- End Google Tag Manager -->
+    <script src="AppMeasurement.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Carrito</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="cart.css" />
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PJNFRCXR"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <nav>
+        <div class="nav-side-left"></div>
+        <div class="nav-center">
+          <a href="clubs.html" class="nav-link">Clubs</a>
+          <a href="index.html">
+            <img
+              width="60px"
+              src="./images/LALIGA_logo.png"
+              alt="LALIGA logotipo"
+              class="logo"
+            />
+          </a>
+          <a href="shop.html" class="nav-link">Tienda</a>
+        </div>
+        <div class="nav-side-right">
+          <a href="cart.html" class="cart">
+            <img width="40px" src="./images/carrito.png" alt="Carrito" />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main class="cart-container">
+      <h2>Tu Carrito</h2>
+      <div id="cart-items" class="cart-items"></div>
+
+      <div class="cart-summary">
+        <p id="total-price"><strong>Total:</strong> 0,00 €</p>
+        <div class="cart-buttons">
+          <a id="continue-shopping" href="shop.html">Seguir comprando</a>
+          <button id="checkout">Finalizar compra</button>
+        </div>
+      </div>
+    </main>
+    <footer>LALIGA 24/25</footer>
+    <script src="cart.js"></script>
+  </body>
+</html>

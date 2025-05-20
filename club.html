@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PJNFRCXR");
+    </script>
+    <!-- End Google Tag Manager -->
+    <script src="AppMeasurement.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Club</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="club.css" />
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PJNFRCXR"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <nav>
+        <div class="nav-side-left"></div>
+        <div class="nav-center">
+          <a href="clubs.html" class="nav-link">Clubs</a>
+          <a href="index.html">
+            <img
+              width="60px"
+              src="./images/LALIGA_logo.png"
+              alt="LALIGA logotipo"
+              class="logo"
+            />
+          </a>
+          <a href="shop.html" class="nav-link">Tienda</a>
+        </div>
+        <div class="nav-side-right">
+          <a href="cart.html" class="cart">
+            <img width="40px" src="./images/carrito.png" alt="Carrito" />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <div class="club-container" id="club-info">
+      <div class="logo-container">
+        <img id="club-logo" src="" alt="Logo" />
+        <h1 id="club-name"></h1>
+      </div>
+      <div class="club-details">
+        <div class="feature-card" id="stadium-card">
+          <h2 id="stadium-name">Estadio</h2>
+          <img id="stadiumImg" alt="Estadio" class="feature-icon" />
+          <p id="stadium"></p>
+        </div>
+        <div class="feature-card" id="titles-card">
+          <h2 id="titles-name">Títulos</h2>
+          <p id="titles"></p>
+        </div>
+        <div class="feature-card" id="foundation-card">
+          <h2 id="foundation-name">Año de Fundación</h2>
+          <p id="foundation"></p>
+        </div>
+        <div class="feature-card" id="shirt-card">
+          <a id="shirt" class="shirt">
+            <h2 id="shirt-shop">Camiseta</h2>
+            <img id="shirtImg" alt="Camiseta" class="feature-shirt" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <footer>LALIGA 24/25</footer>
+    <script src="club.js"></script>
+  </body>
+</html>

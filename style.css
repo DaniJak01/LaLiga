@@ -1,0 +1,318 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+h1 {
+  text-align: center;
+  padding: 1rem;
+  margin: 0;
+  font-size: 3rem;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+nav a {
+  height: 60px;
+}
+
+.nav-side-left,
+.nav-side-right {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: rgb(255, 75, 68);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart {
+  height: 40px;
+}
+
+.cart img {
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s;
+}
+
+.cart img:hover {
+  transform: scale(1.1);
+}
+
+.logo {
+  box-shadow: 0 4px 6px rgb(255, 255, 255, 0.3);
+  background-color: white;
+  cursor: pointer;
+}
+
+.nav-link {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(255, 75, 68);
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 6px rgb(255, 255, 255, 0.3);
+  height: 60px;
+  width: 100px;
+  line-height: 60px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: rgb(228, 41, 35);
+}
+
+.history p {
+  width: 50%;
+  text-align: left;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+}
+
+.history figure {
+  text-align: center;
+}
+
+.slider-width {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  background-color: rgb(255, 75, 68);
+}
+
+.slider-container {
+  margin: 0 auto;
+  width: 70%;
+  height: 300px;
+  box-shadow: 0 1px 6px rgb(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
+.slider {
+  width: 300%;
+  height: 100%;
+  display: flex;
+}
+
+.slide {
+  display: flex;
+  width: calc(100% / 3);
+}
+
+.slide img {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  max-width: 60%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.player-info {
+  color: white;
+  width: 40%;
+  text-align: left;
+  overflow: auto;
+}
+
+.btn-left,
+.btn-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2em;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.btn-left {
+  left: 10px;
+}
+
+.btn-right {
+  right: 10px;
+}
+
+.btn-left:hover,
+.btn-right:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.iconicTeams {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+h2 {
+  font-size: 2.2em;
+  margin-bottom: 30px;
+}
+
+.teams-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.team:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.team-logo {
+  width: 80%;
+  max-width: 120px;
+  height: auto;
+  margin: 20px 0;
+}
+
+.team h3 {
+  font-size: 1.6em;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.team-info {
+  font-size: 1em;
+  color: #777;
+  padding: 0 15px 20px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .history p {
+    width: 90%;
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .history img {
+    width: 90%;
+  }
+
+  .teams-container {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-container {
+    width: 90%;
+    height: auto;
+  }
+
+  .teams-container {
+    grid-template-columns: repeat(1, 1fr);
+    max-width: 60%;
+    margin: 0 auto;
+  }
+
+  .slide {
+    flex-direction: column;
+  }
+
+  .slide img {
+    margin: 1rem;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .player-info {
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+    overflow: auto;
+  }
+
+  .team {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .team-logo {
+    max-width: 100px;
+  }
+
+  .team-info {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .teams-container {
+    grid-template-columns: repeat(1, 1fr);
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  .nav-link {
+    width: 75px;
+    padding: 0px 10px;
+  }
+
+  .nav-side-right img {
+    transform: scale(0.7);
+  }
+
+  nav {
+    padding: 0px 10px;
+  }
+}
+
+footer {
+  background-color: rgb(255, 75, 68);
+  color: white;
+  padding: 20px 0;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
