@@ -19,6 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       });
 
+      // Adobe Analytics: pageView
+      var s = s_gi("ageo1xxlonprueba");
+      s.pageName = "Tienda: Catálogo";
+      s.channel = "Ecommerce";
+      s.events = "";
+      s.t();
+
       populateSelect(
         "team-filter",
         getUniqueValues(products, "team"),
@@ -47,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         showProducts(filteredProducts);
 
-        // Nueva lista tras filtro → actualizar en dataLayer
+        // Nueva lista tras filtro -> actualizar en dataLayer
         dataLayer.push({
           ecommerce: {
             items: filteredProducts.map((product) => ({
@@ -144,11 +151,4 @@ function trackSelectItem(
       ],
     },
   });
-
-  var s = s_gi("ageo1xxlonprueba");
-  s.events = "prodView";
-  s.products = `;${productId};;;eVar3=${productCategory}|eVar8=${productTeam}|eVar9=${productColor}|eVar13=${productName}`;
-  s.linkTrackVars = "events,products";
-  s.linkTrackEvents = "prodView";
-  s.tl(true, "o", "select_item");
 }

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <p><strong>Talla:</strong> ${item.size}</p>
           <p><strong>Dorsal:</strong> ${
             item.wantsDorsal
-              ? `Número: ${item.number}, Nombre: ${item.name}`
+              ? `Número: ${item.dorsal_number}, Nombre: ${item.dorsal_name}`
               : "Sin dorsal"
           }</p>
           <p><strong>Total:</strong> ${(item.total.toFixed(2) + " €").replace(
@@ -38,9 +38,31 @@ document.addEventListener("DOMContentLoaded", function () {
       total.toFixed(2) + " €"
     ).replace(".", ",");
 
+    // Inicial push de ecommerce sin evento
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      ecommerce: {
+        currency: "EUR",
+        value: total,
+        items: cartItems.map((item) => ({
+          item_id: item.id,
+          item_name: item.name,
+          quantity: item.quantity,
+          price: parseFloat(item.price.replace(",", ".")),
+          item_category: item.category,
+          item_size: item.size,
+          team: item.team,
+          color: item.color,
+          dorsal: item.wantsDorsal ? "Sí" : "No",
+          dorsal_name: item.wantsDorsal ? item.dorsal_name : null,
+          dorsal_number: item.wantsDorsal ? item.dorsal_number : null,
+        })),
+      },
+    });
+
     // Adobe Analytics: pageView
     var s = s_gi("ageo1xxlonprueba");
-    s.pageName = "Página de compra";
+    s.pageName = "Tienda: Checkout";
     s.channel = "Ecommerce";
     s.events = "";
     s.t();
@@ -52,19 +74,56 @@ document.addEventListener("DOMContentLoaded", function () {
   window.deleteItem = function (index) {
     const removedItem = cartItems[index];
 
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      ecommerce: {
+        currency: "EUR",
+        value:
+          parseFloat(removedItem.price.replace(",", ".")) *
+          removedItem.quantity,
+        items: [
+          {
+            item_id: removedItem.id,
+            item_name: removedItem.name,
+            quantity: removedItem.quantity,
+            price: parseFloat(removedItem.price.replace(",", ".")),
+            item_category: removedItem.category,
+            item_size: removedItem.size,
+            team: removedItem.team,
+            color: removedItem.color,
+            dorsal: removedItem.wantsDorsal ? "Sí" : "No",
+            dorsal_name: removedItem.wantsDorsal
+              ? removedItem.dorsal_name
+              : null,
+            dorsal_number: removedItem.wantsDorsal
+              ? removedItem.dorsal_number
+              : null,
+          },
+        ],
+      },
+    });
+
     // Adobe Analytics: remove_from_cart
     var s = s_gi("ageo1xxlonprueba");
-    s.events = "scRemove";
-    s.products = `;${removedItem.id};${removedItem.quantity};${parseFloat(
-      removedItem.price.replace(",", ".")
-    )}`;
-    s.linkTrackVars = "events,products";
+    s.linkTrackVars = "products,events,eVar7,eVar8,eVar9,eVar10,eVar11,eVar12";
     s.linkTrackEvents = "scRemove";
+    s.events = "scRemove";
+    s.products = `${removedItem.category};${removedItem.name};${
+      removedItem.quantity
+    };${parseFloat(removedItem.price.replace(",", "."))};;eVar7=${
+      removedItem.size
+    }|eVar8=${removedItem.team}|eVar9=${removedItem.color.join("-")}|eVar10=${
+      removedItem.wantsDorsal ? "Sí" : "No"
+    }|eVar11=${removedItem.wantsDorsal ? removedItem.dorsal_name : ""}|eVar12=${
+      removedItem.wantsDorsal ? removedItem.dorsal_number : ""
+    }`;
     s.tl(true, "o", "remove_from_cart");
 
-    cartItems.splice(index, 1);
-    sessionStorage.setItem("carrito", JSON.stringify(cartItems));
-    location.reload();
+    setTimeout(() => {
+      cartItems.splice(index, 1);
+      sessionStorage.setItem("carrito", JSON.stringify(cartItems));
+      location.reload();
+    }, 300);
   };
 
   // Pasos
@@ -76,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const step2Indicator = document.getElementById("step-indicator-payment");
   const step3Indicator = document.getElementById("step-indicator-confirm");
 
-  // Paso 1 → 2
+  // Paso 1 -> 2
   const nextToPaymentBtn = document.getElementById("next-to-payment");
   nextToPaymentBtn.addEventListener("click", () => {
     const name = document.getElementById("name").value.trim();
@@ -90,10 +149,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Adobe Analytics: add_shipping_info
     var s = s_gi("ageo1xxlonprueba");
-    s.events = "scCheckout";
-    s.eVar4 = "Dirección: " + address;
     s.linkTrackVars = "events,eVar4";
-    s.linkTrackEvents = "scCheckout";
+    s.linkTrackEvents = "event7";
+    s.events = "event7";
+    s.eVar4 = "Dirección: " + address;
     s.tl(true, "o", "add_shipping_info");
 
     stepShipping.style.display = "none";
@@ -102,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
     step2Indicator.classList.add("active");
   });
 
-  // Botón volver ← Paso 2 a Paso 1
+  // Botón volver <- Paso 2 a Paso 1
   const backToShippingBtn = document.getElementById("back-to-shipping");
   backToShippingBtn.addEventListener("click", () => {
     stepPayment.style.display = "none";
@@ -113,14 +172,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const goToConfirmBtn = document.getElementById("go-to-confirm");
   goToConfirmBtn.addEventListener("click", () => {
-    const paymentMethod = document.getElementById("payment-method").value;
+    const paymentSelect = document.getElementById("payment-method");
+    const paymentMethod =
+      paymentSelect.options[paymentSelect.selectedIndex].text;
 
     // Adobe Analytics: add_payment_info
     var s = s_gi("ageo1xxlonprueba");
-    s.events = "scCheckout";
-    s.eVar5 = paymentMethod;
     s.linkTrackVars = "events,eVar5";
-    s.linkTrackEvents = "scCheckout";
+    s.linkTrackEvents = "event8";
+    s.events = "event8";
+    s.eVar5 = paymentMethod;
     s.tl(true, "o", "add_payment_info");
 
     stepPayment.style.display = "none";
@@ -129,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
     step3Indicator.classList.add("active");
   });
 
-  // Botón volver de confirmación ← paso 2
+  // Botón volver de confirmación <- paso 2
   const backToPaymentBtn = document.getElementById("back-to-payment");
   backToPaymentBtn.addEventListener("click", () => {
     stepConfirm.style.display = "none";
@@ -155,31 +216,49 @@ document.addEventListener("DOMContentLoaded", function () {
         .replace(",", ".")
     );
 
-    const transactionId = "ORD-" + Math.floor(Math.random() * 999999);
+    const transactionId = "ORD" + Math.floor(Math.random() * 999999);
+
+    dataLayer.push({
+      ecommerce: {
+        transaction_id: transactionId,
+        currency: "EUR",
+        value: totalValue,
+        items: cartItems.map((item) => ({
+          item_id: item.id,
+          item_name: item.name,
+          quantity: item.quantity,
+          price: parseFloat(item.price.replace(",", ".")),
+          item_category: item.category,
+          item_size: item.size,
+          team: item.team,
+          color: item.color,
+          dorsal: item.wantsDorsal ? "Sí" : "No",
+          dorsal_name: item.wantsDorsal ? item.dorsal_name : null,
+          dorsal_number: item.wantsDorsal ? item.dorsal_number : null,
+        })),
+      },
+    });
 
     // Adobe Analytics: purchase
     var s = s_gi("ageo1xxlonprueba");
-    s.linkTrackVars =
-      "events,purchaseID,products,eVar13,eVar3,eVar7,eVar8,eVar9,eVar10,eVar11,eVar16,revenue,currencyCode";
-    s.linkTrackEvents = "purchase";
+
     s.events = "purchase";
     s.purchaseID = transactionId;
     s.eVar6 = paymentMethod;
     s.products = cartItems
       .map(
         (item) =>
-          `;${item.id};${item.quantity};${parseFloat(
+          `${item.category};${item.name};${item.quantity};${parseFloat(
             item.price.replace(",", ".")
-          )};evar13=${item.name}|eVar3=${item.category}|eVar7=${
-            item.size
-          }|eVar8=${item.team}|eVar9=${item.color}|eVar10=${
-            item.wantsDorsal ? "Sí" : "No"
-          }|eVar11=${item.dorsal_name}|eVar16=${item.dorsal_number}`
+          )};;eVar7=${item.size}|eVar8=${item.team}|eVar9=${item.color.join(
+            "-"
+          )}|eVar10=${item.wantsDorsal ? "Sí" : "No"}|eVar11=${
+            item.wantsDorsal ? item.dorsal_name : ""
+          }|eVar12=${item.wantsDorsal ? item.dorsal_number : ""}`
       )
       .join(",");
-    s.tl(true, "o", "purchase");
-    s.revenue = totalValue.toFixed(2);
     s.currencyCode = "EUR";
+    s.t();
 
     const resumenPedido = {
       name,
@@ -193,6 +272,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sessionStorage.setItem("resumenPedido", JSON.stringify(resumenPedido));
     sessionStorage.removeItem("carrito");
-    window.location.href = "thank-you.html";
+    setTimeout(() => {
+      window.location.href = "thank-you.html";
+    }, 300);
   });
 });

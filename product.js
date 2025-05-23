@@ -24,9 +24,41 @@ document.addEventListener("DOMContentLoaded", function () {
           "product-price"
         ).textContent = `${product.price}€`;
 
+        // dataLayer push único para vista de producto
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+          ecommerce: {
+            currency: "EUR",
+            value: parseFloat(product.price.replace(",", ".")),
+            items: [
+              {
+                item_id: product.id,
+                item_name: product.name,
+                price: parseFloat(product.price.replace(",", ".")),
+                team: product.team,
+                item_category: product.category,
+                color: product.color,
+                customizable: product.customizable,
+              },
+            ],
+          },
+        });
+
+        // Adobe Analytics: Product Views
         var s = s_gi("ageo1xxlonprueba");
-        s.pageName = "Página del producto";
+        s.pageName = `Tienda: Producto - ${product.name}`;
         s.channel = "Ecommerce";
+        s.linkTrackVars = "events,products,eVar8,eVar9";
+        s.linkTrackEvents = "prodView";
+        s.events = "prodView";
+
+        s.eVar8 = product.team;
+        s.eVar9 = product.color.join("-");
+
+        s.products = `${product.category};${product.name};;${parseFloat(
+          product.price.replace(",", ".")
+        )};;eVar8=${product.team}|eVar9=${product.color.join("-")}`;
+
         s.t();
 
         // Mostrar u ocultar campos de dorsal
@@ -97,6 +129,31 @@ document.addEventListener("DOMContentLoaded", function () {
     carrito.push(orderDetails);
     sessionStorage.setItem("carrito", JSON.stringify(carrito));
 
+    // dataLayer push único con información para GTM
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({
+      ecommerce: {
+        currency: "EUR",
+        value: parseFloat(product.price.replace(",", ".")) * quantity,
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.name,
+            price: parseFloat(product.price.replace(",", ".")),
+            team: product.team,
+            item_category: product.category,
+            color: product.color,
+            customizable: product.customizable,
+            quantity: quantity,
+            item_size: size,
+            dorsal: wantsDorsal ? "Sí" : "No",
+            dorsal_name: wantsDorsal ? dorsal_name : null,
+            dorsal_number: wantsDorsal ? dorsal_number : null,
+          },
+        ],
+      },
+    });
+
     // Feedback al usuario
     let resumen = `Producto añadido:\n- Cantidad: ${quantity}\n- Talla: ${size}`;
     resumen += wantsDorsal
@@ -107,34 +164,40 @@ document.addEventListener("DOMContentLoaded", function () {
       // Adobe Analytics: add_to_cart
       var s = s_gi("ageo1xxlonprueba");
       s.linkTrackVars =
-        "products,events,eVar3,eVar13,eVar7,eVar8,eVar9,eVar10,eVar11,eVar16";
+        "products,events,eVar7,eVar8,eVar9,eVar10,eVar11,eVar12";
       s.linkTrackEvents = "scAdd";
       s.events = "scAdd";
-      s.products = `;${product.id};${quantity};${parseFloat(
+
+      s.products = `${product.category};${
+        product.name
+      };${quantity};${parseFloat(
         product.price.replace(",", ".")
-      )};evar13=${product.name}|eVar3=${product.category}|eVar7=${size}|eVar8=${
-        product.team
-      }|eVar9=${product.color}|eVar10=${
-        wantsDorsal ? "Sí" : "No"
-      }|eVar11=${dorsal_name}|eVar16=${dorsal_number}`;
+      )};;eVar7=${size}|eVar8=${product.team}|eVar9=${product.color.join(
+        "-"
+      )}|eVar10=${wantsDorsal ? "Sí" : "No"}|eVar11=${
+        wantsDorsal ? dorsal_name : ""
+      }|eVar12=${wantsDorsal ? dorsal_number : ""}`;
       s.tl(true, "o", "add_to_cart");
       alert(`El producto ha sido añadido al carrito.\n\n${resumen}`);
     } else if (e.submitter === buyButton) {
-      // Adobe Analytics: begin_checkout
       var s = s_gi("ageo1xxlonprueba");
-      s.linkTrackVars =
-        "products,events,eVar3,eVar13,eVar7,eVar8,eVar9,eVar10,eVar11,eVar16";
-      s.linkTrackEvents = "scCheckout";
-      s.events = "scCheckout";
-      s.products = `;${product.id};${product.quantity};${parseFloat(
-        product.price.replace(",", ".")
-      )};evar13=${product.name}|eVar3=${product.category}|eVar7=${size}|eVar8=${
-        product.team
-      }|eVar9=${product.color}|eVar10=${
-        wantsDorsal ? "Sí" : "No"
-      }|eVar11=${dorsal_name}|eVar16=${dorsal_number}`;
-      s.tl(true, "o", "begin_checkout");
 
+      s.linkTrackVars =
+        "products,events,eVar7,eVar8,eVar9,eVar10,eVar11,eVar12";
+      s.linkTrackEvents = "scAdd,scCheckout";
+      s.events = "scAdd,scCheckout";
+
+      s.products = `${product.category};${
+        product.name
+      };${quantity};${parseFloat(
+        product.price.replace(",", ".")
+      )};;eVar7=${size}|eVar8=${product.team}|eVar9=${product.color.join(
+        "-"
+      )}|eVar10=${wantsDorsal ? "Sí" : "No"}|eVar11=${
+        wantsDorsal ? dorsal_name : ""
+      }|eVar12=${wantsDorsal ? dorsal_number : ""}`;
+
+      s.t();
       window.location.href = "purchase.html";
     }
   });
