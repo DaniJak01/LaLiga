@@ -1,7 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-  let cartItems = JSON.parse(sessionStorage.getItem("carrito"));
+  function renderCart() {
+    const existingContainer = document.querySelector(".cart-items");
+    if (existingContainer) existingContainer.remove();
 
-  if (cartItems && cartItems.length > 0) {
+    let cartItems = JSON.parse(sessionStorage.getItem("carrito")) || [];
+
+    if (cartItems.length === 0) {
+      window.location.href = "index.html";
+      return;
+    }
+
     let cartItemsContainer = document.createElement("div");
     cartItemsContainer.classList.add("cart-items");
 
@@ -38,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
       total.toFixed(2) + " €"
     ).replace(".", ",");
 
-    // Inicial push de ecommerce sin evento
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({
       ecommerce: {
@@ -59,20 +66,14 @@ document.addEventListener("DOMContentLoaded", function () {
         })),
       },
     });
-
-    // Adobe Analytics: pageView
-    var s = s_gi("ageo1xxlonprueba");
-    s.pageName = "Tienda: Checkout";
-    s.channel = "Ecommerce";
-    s.events = "";
-    s.t();
-  } else {
-    window.location.href = "index.html";
   }
 
-  // Eliminar producto del carrito
+  renderCart();
+
   window.deleteItem = function (index) {
+    let cartItems = JSON.parse(sessionStorage.getItem("carrito")) || [];
     const removedItem = cartItems[index];
+    window.removedItem = removedItem;
 
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({
@@ -103,30 +104,11 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
 
-    // Adobe Analytics: remove_from_cart
-    var s = s_gi("ageo1xxlonprueba");
-    s.linkTrackVars = "products,events,eVar7,eVar8,eVar9,eVar10,eVar11,eVar12";
-    s.linkTrackEvents = "scRemove";
-    s.events = "scRemove";
-    s.products = `${removedItem.category};${removedItem.name};${
-      removedItem.quantity
-    };${parseFloat(removedItem.price.replace(",", "."))};;eVar7=${
-      removedItem.size
-    }|eVar8=${removedItem.team}|eVar9=${removedItem.color.join("-")}|eVar10=${
-      removedItem.wantsDorsal ? "Sí" : "No"
-    }|eVar11=${removedItem.wantsDorsal ? removedItem.dorsal_name : ""}|eVar12=${
-      removedItem.wantsDorsal ? removedItem.dorsal_number : ""
-    }`;
-    s.tl(true, "o", "remove_from_cart");
-
-    setTimeout(() => {
-      cartItems.splice(index, 1);
-      sessionStorage.setItem("carrito", JSON.stringify(cartItems));
-      location.reload();
-    }, 300);
+    cartItems.splice(index, 1);
+    sessionStorage.setItem("carrito", JSON.stringify(cartItems));
+    renderCart();
   };
 
-  // Pasos
   const stepShipping = document.getElementById("step-shipping");
   const stepPayment = document.getElementById("step-payment");
   const stepConfirm = document.getElementById("step-confirm");
@@ -135,25 +117,28 @@ document.addEventListener("DOMContentLoaded", function () {
   const step2Indicator = document.getElementById("step-indicator-payment");
   const step3Indicator = document.getElementById("step-indicator-confirm");
 
-  // Paso 1 -> 2
   const nextToPaymentBtn = document.getElementById("next-to-payment");
   nextToPaymentBtn.addEventListener("click", () => {
     const name = document.getElementById("name").value.trim();
     const lastName = document.getElementById("last-name").value.trim();
     const address = document.getElementById("address").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const province = document.getElementById("province").value;
 
-    if (!name || !lastName || !address) {
-      alert("Por favor, completa todos los campos de envío.");
+    window.shippingAddress = address;
+
+    if (!name || !lastName || !address || !email || !province) {
+      alert("Por favor, completa todos los campos obligatorios.");
       return;
     }
 
-    // Adobe Analytics: add_shipping_info
-    var s = s_gi("ageo1xxlonprueba");
-    s.linkTrackVars = "events,eVar4";
-    s.linkTrackEvents = "event7";
-    s.events = "event7";
-    s.eVar4 = "Dirección: " + address;
-    s.tl(true, "o", "add_shipping_info");
+    sessionStorage.setItem("name", name);
+    sessionStorage.setItem("lastName", lastName);
+    sessionStorage.setItem("address", address);
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("phone", phone);
+    sessionStorage.setItem("province", province);
 
     stepShipping.style.display = "none";
     stepPayment.style.display = "flex";
@@ -161,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
     step2Indicator.classList.add("active");
   });
 
-  // Botón volver <- Paso 2 a Paso 1
   const backToShippingBtn = document.getElementById("back-to-shipping");
   backToShippingBtn.addEventListener("click", () => {
     stepPayment.style.display = "none";
@@ -176,13 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const paymentMethod =
       paymentSelect.options[paymentSelect.selectedIndex].text;
 
-    // Adobe Analytics: add_payment_info
-    var s = s_gi("ageo1xxlonprueba");
-    s.linkTrackVars = "events,eVar5";
-    s.linkTrackEvents = "event8";
-    s.events = "event8";
-    s.eVar5 = paymentMethod;
-    s.tl(true, "o", "add_payment_info");
+    window.paymentMethod = paymentMethod;
 
     stepPayment.style.display = "none";
     stepConfirm.style.display = "flex";
@@ -190,7 +168,6 @@ document.addEventListener("DOMContentLoaded", function () {
     step3Indicator.classList.add("active");
   });
 
-  // Botón volver de confirmación <- paso 2
   const backToPaymentBtn = document.getElementById("back-to-payment");
   backToPaymentBtn.addEventListener("click", () => {
     stepConfirm.style.display = "none";
@@ -199,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
     step2Indicator.classList.add("active");
   });
 
-  // Finalizar compra (Paso 3)
   const confirmBtn = document.getElementById("confirm-purchase");
   confirmBtn.addEventListener("click", () => {
     const name = document.getElementById("name").value;
@@ -217,6 +193,8 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     const transactionId = "ORD" + Math.floor(Math.random() * 999999);
+
+    const cartItems = JSON.parse(sessionStorage.getItem("carrito")) || [];
 
     dataLayer.push({
       ecommerce: {
@@ -239,27 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
 
-    // Adobe Analytics: purchase
-    var s = s_gi("ageo1xxlonprueba");
-
-    s.events = "purchase";
-    s.purchaseID = transactionId;
-    s.eVar6 = paymentMethod;
-    s.products = cartItems
-      .map(
-        (item) =>
-          `${item.category};${item.name};${item.quantity};${parseFloat(
-            item.price.replace(",", ".")
-          )};;eVar7=${item.size}|eVar8=${item.team}|eVar9=${item.color.join(
-            "-"
-          )}|eVar10=${item.wantsDorsal ? "Sí" : "No"}|eVar11=${
-            item.wantsDorsal ? item.dorsal_name : ""
-          }|eVar12=${item.wantsDorsal ? item.dorsal_number : ""}`
-      )
-      .join(",");
-    s.currencyCode = "EUR";
-    s.t();
-
     const resumenPedido = {
       name,
       lastName,
@@ -271,7 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     sessionStorage.setItem("resumenPedido", JSON.stringify(resumenPedido));
-    sessionStorage.removeItem("carrito");
     setTimeout(() => {
       window.location.href = "thank-you.html";
     }, 300);

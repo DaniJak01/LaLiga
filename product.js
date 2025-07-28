@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
           "product-price"
         ).textContent = `${product.price}€`;
 
-        // dataLayer push único para vista de producto
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           ecommerce: {
@@ -43,23 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
             ],
           },
         });
-
-        // Adobe Analytics: Product Views
-        var s = s_gi("ageo1xxlonprueba");
-        s.pageName = `Tienda: Producto - ${product.name}`;
-        s.channel = "Ecommerce";
-        s.linkTrackVars = "events,products,eVar8,eVar9";
-        s.linkTrackEvents = "prodView";
-        s.events = "prodView";
-
-        s.eVar8 = product.team;
-        s.eVar9 = product.color.join("-");
-
-        s.products = `${product.category};${product.name};;${parseFloat(
-          product.price.replace(",", ".")
-        )};;eVar8=${product.team}|eVar9=${product.color.join("-")}`;
-
-        s.t();
 
         // Mostrar u ocultar campos de dorsal
         const customizationOptions = document.getElementById(
@@ -129,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
     carrito.push(orderDetails);
     sessionStorage.setItem("carrito", JSON.stringify(carrito));
 
-    // dataLayer push único con información para GTM
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({
       ecommerce: {
@@ -161,43 +142,9 @@ document.addEventListener("DOMContentLoaded", function () {
       : `\n- Sin dorsal`;
 
     if (e.submitter === cartButton) {
-      // Adobe Analytics: add_to_cart
-      var s = s_gi("ageo1xxlonprueba");
-      s.linkTrackVars =
-        "products,events,eVar7,eVar8,eVar9,eVar10,eVar11,eVar12";
-      s.linkTrackEvents = "scAdd";
-      s.events = "scAdd";
-
-      s.products = `${product.category};${
-        product.name
-      };${quantity};${parseFloat(
-        product.price.replace(",", ".")
-      )};;eVar7=${size}|eVar8=${product.team}|eVar9=${product.color.join(
-        "-"
-      )}|eVar10=${wantsDorsal ? "Sí" : "No"}|eVar11=${
-        wantsDorsal ? dorsal_name : ""
-      }|eVar12=${wantsDorsal ? dorsal_number : ""}`;
-      s.tl(true, "o", "add_to_cart");
       alert(`El producto ha sido añadido al carrito.\n\n${resumen}`);
     } else if (e.submitter === buyButton) {
-      var s = s_gi("ageo1xxlonprueba");
-
-      s.linkTrackVars =
-        "products,events,eVar7,eVar8,eVar9,eVar10,eVar11,eVar12";
-      s.linkTrackEvents = "scAdd,scCheckout";
-      s.events = "scAdd,scCheckout";
-
-      s.products = `${product.category};${
-        product.name
-      };${quantity};${parseFloat(
-        product.price.replace(",", ".")
-      )};;eVar7=${size}|eVar8=${product.team}|eVar9=${product.color.join(
-        "-"
-      )}|eVar10=${wantsDorsal ? "Sí" : "No"}|eVar11=${
-        wantsDorsal ? dorsal_name : ""
-      }|eVar12=${wantsDorsal ? dorsal_number : ""}`;
-
-      s.t();
+      sessionStorage.setItem("clickedButton", "buy_now");
       window.location.href = "purchase.html";
     }
   });

@@ -217,11 +217,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("shirtImg").src = team.shirtImg;
 
     // Adobe Analytics: pageView
-    var s = s_gi("ageo1xxlonprueba");
-    s.pageName = `Clubs: ${team.name}`;
-    s.channel = "Contenido";
-    s.events = "";
-    s.t();
+    // var s = s_gi("ageo1xxlonprueba");
+    // s.pageName = `Clubs: ${team.name}`;
+    // s.channel = "Contenido";
+    // s.events = "";
+    // s.t();
 
     const logoContainer = document.querySelector(".logo-container");
     if (logoContainer) {

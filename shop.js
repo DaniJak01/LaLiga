@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((products) => {
       showProducts(products);
 
-      // dataLayer push único con todos los productos visibles inicialmente
       window.dataLayer = window.dataLayer || [];
       dataLayer.push({
         ecommerce: {
@@ -18,13 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
           })),
         },
       });
-
-      // Adobe Analytics: pageView
-      var s = s_gi("ageo1xxlonprueba");
-      s.pageName = "Tienda: Catálogo";
-      s.channel = "Ecommerce";
-      s.events = "";
-      s.t();
 
       populateSelect(
         "team-filter",

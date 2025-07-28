@@ -1,37 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-PJNFRCXR");
-    </script>
-    <!-- End Google Tag Manager -->
-    <script src="AppMeasurement.js"></script>
+    <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/cc1a1cc5e9ee/launch-ebdeaa92800d-development.min.js"
+      async
+    ></script>
+    <!--Target's JavaScript SDK, at.js-->
+    <script src="at.js"></script>
+    <!--/at.js-->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LALIGA</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-PJNFRCXR"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <header>
       <div class="title">
         <h1>LALIGA</h1>
@@ -61,6 +43,27 @@
       </nav>
     </header>
     <main>
+      <div class="home-banner-promo" style="margin-top: 20px">
+        <a
+          href="/shop.html"
+          style="
+            width: 50%;
+            margin: 0 auto;
+            display: block;
+            background: #01ac40;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+          "
+        >
+          <h2 style="margin: 0; font-size: 24px">¡Nueva Temporada 25/26!</h2>
+          <p style="margin: 10px 0 0">
+            Descubre el merchandising oficial de la próxima temporada
+          </p>
+        </a>
+      </div>
       <section class="history">
         <h2>Historia</h2>
         <p>
@@ -216,11 +219,20 @@
     <script src="slider.js"></script>
     <script>
       // Adobe Analytics: pageView
-      var s = s_gi("ageo1xxlonprueba");
-      s.pageName = "Inicio";
-      s.channel = "Contenido";
-      s.events = "";
-      s.t();
+      // var s = s_gi("ageo1xxlonprueba");
+      // s.pageName = "Inicio";
+      // s.channel = "Contenido";
+      // s.events = "";
+      // s.t();
+      // adobe.target.getOffer({
+      //   mbox: "home-banner-promo",
+      //   success: function (offer) {
+      //     adobe.target.applyOffer({
+      //       selector: "#banner-promo-placeholder",
+      //       offer: offer,
+      //     });
+      //   },
+      // });
     </script>
   </body>
 </html>

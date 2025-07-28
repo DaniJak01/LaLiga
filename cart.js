@@ -49,26 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
       eliminarBtn.textContent = "Eliminar";
       eliminarBtn.classList.add("delete-btn");
       eliminarBtn.addEventListener("click", () => {
+        window.removedItem = carrito[index];
         carrito.splice(index, 1);
         sessionStorage.setItem("carrito", JSON.stringify(carrito));
         renderCart();
-
-        // Adobe Analytics: remove_from_cart
-        var s = s_gi("ageo1xxlonprueba");
-        s.events = "scRemove";
-        s.linkTrackVars =
-          "products,events,eVar7,eVar8,eVar9,eVar10,eVar11,eVar12";
-        s.linkTrackEvents = "scRemove";
-        s.products = `${item.category};${item.name};${
-          item.quantity
-        };${parseFloat(item.price.replace(",", "."))};;eVar7=${
-          item.size
-        }|eVar8=${item.team}|eVar9=${item.color.join("-")}|eVar10=${
-          item.wantsDorsal ? "Sí" : "No"
-        }|eVar11=${item.wantsDorsal ? item.dorsal_name : ""}|eVar12=${
-          item.wantsDorsal ? item.dorsal_number : ""
-        }`;
-        s.tl(true, "o", "remove_from_cart");
       });
 
       detailsDiv.appendChild(talla);
@@ -87,30 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
     totalPriceElement.textContent = `Total: ${total
       .toFixed(2)
       .replace(".", ",")} €`;
-
-    // Adobe Analytics: scView
-    var s = s_gi("ageo1xxlonprueba");
-    s.pageName = "Tienda: Carrito";
-    s.channel = "Ecommerce";
-    s.events = "scView";
-    s.products = carrito
-      .map(
-        (item) =>
-          `${item.category};${item.name};${item.quantity};${parseFloat(
-            item.price.replace(",", ".")
-          )};;eVar7=${item.size}|eVar8=${item.team}|eVar9=${item.color.join(
-            "-"
-          )}|eVar10=${item.wantsDorsal ? "Sí" : "No"}|eVar11=${
-            item.wantsDorsal ? item.dorsal_name : ""
-          }|eVar12=${item.wantsDorsal ? item.dorsal_number : ""}`
-      )
-      .join(",");
-    s.t();
   }
 
   renderCart();
 
-  // Push inicial al dataLayer (estado de carrito)
   window.dataLayer = window.dataLayer || [];
   dataLayer.push({
     ecommerce: {
@@ -134,29 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   checkoutButton.addEventListener("click", () => {
     if (carrito.length > 0) {
-      var s = s_gi("ageo1xxlonprueba");
-      s.linkTrackVars =
-        "events,products,eVar7,eVar8,eVar9,eVar10,eVar11,eVar12";
-      s.linkTrackEvents = "scCheckout";
-      s.events = "scCheckout";
-      s.products = carrito
-        .map((item) => {
-          return `${item.category};${item.name};${item.quantity};${parseFloat(
-            item.price.replace(",", ".")
-          )};;eVar7=${item.size}|eVar8=${item.team}|eVar9=${item.color.join(
-            "-"
-          )}|eVar10=${item.wantsDorsal ? "Sí" : "No"}|eVar11=${
-            item.wantsDorsal ? item.dorsal_name : ""
-          }|eVar12=${item.wantsDorsal ? item.dorsal_number : ""}`;
-        })
-        .join(",");
-
-      s.t();
-
-      // Redirigir tras esperar un momento para asegurar envío
-      setTimeout(() => {
-        window.location.href = "purchase.html";
-      }, 300);
+      window.location.href = "purchase.html";
     } else {
       alert("Tu carrito está vacío. No puedes realizar la compra.");
     }
