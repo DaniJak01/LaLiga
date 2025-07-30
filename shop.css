@@ -34,7 +34,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   padding: 2rem;
-  padding-left: 0;
 }
 
 .product-card {
@@ -91,14 +90,21 @@
   font-weight: bold;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1150px) {
   .products {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 600px) {
-  .products {
-    grid-template-columns: 1fr;
+@media (max-width: 950px) {
+  .shop-container {
+    flex-direction: column;
+  }
+
+  .left-column {
+    width: 90%;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #f4f4f4;
   }
 }
