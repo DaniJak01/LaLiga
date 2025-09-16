@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Dev -->
+    <!-- <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/cc1a1cc5e9ee/launch-ebdeaa92800d-development.min.js"
+      async
+    ></script> -->
+    <!-- Prod -->
+    <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/5cab8540f52e/launch-2a635ffec2e6-development.min.js"
+      async
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Iniciar Sesión</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <div id="nav"></div>
+    </header>
+
+    <main>
+      <h2>Iniciar Sesión</h2>
+
+      <form id="loginForm" class="form-box">
+        <input type="text" id="email" placeholder="Email" required /><br />
+        <input
+          type="password"
+          id="password"
+          placeholder="Contraseña"
+          required
+        /><br />
+        <button type="submit">Entrar</button>
+      </form>
+
+      <p>
+        ¿No tienes cuenta?
+        <a href="register.html">Regístrate aquí</a>
+      </p>
+    </main>
+
+    <footer>LALIGA 25/26</footer>
+
+    <script>
+      if (document.getElementById("loginForm")) {
+        document
+          .getElementById("loginForm")
+          .addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+              const res = await fetch("/usuarios/login", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+              });
+
+              if (!res.ok) {
+                alert("❌ Email o contraseña incorrectos");
+                return;
+              }
+
+              const user = await res.json();
+              sessionStorage.setItem("currentUser", JSON.stringify(user));
+
+              await alloy("sendEvent", {
+                xdm: {
+                  eventType: "user.login",
+                  identityMap: {
+                    CrmIdLaLiga: [
+                      {
+                        id: "CID_" + user.id,
+                        authenticatedState: "authenticated",
+                        primary: true,
+                      },
+                    ],
+                    EmailIdLaLiga: [
+                      {
+                        id: user.email.toLowerCase(),
+                        authenticatedState: "authenticated",
+                        primary: false,
+                      },
+                    ],
+                  },
+                },
+              })
+                .then((response) => {
+                  console.log("Evento login enviado ✅", response);
+                })
+                .catch((err) => {
+                  console.error("Error enviando evento login ❌", err);
+                });
+
+              window.location.href = "index.html";
+            } catch (err) {
+              console.error("Error:", err);
+              alert("⚠️ Error en el servidor");
+            }
+          });
+      }
+    </script>
+    <script src="./js/userSession.js"></script>
+    <script src="./js/loadNav.js"></script>
+  </body>
+</html>

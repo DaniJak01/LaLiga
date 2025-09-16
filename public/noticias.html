@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Dev -->
+    <!-- <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/cc1a1cc5e9ee/launch-ebdeaa92800d-development.min.js"
+      async
+    ></script> -->
+    <!-- Prod -->
+    <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/5cab8540f52e/launch-2a635ffec2e6-development.min.js"
+      async
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Noticias</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/videos.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <div id="nav"></div>
+    </header>
+
+    <main>
+      <h2>Noticias</h2>
+      <div class="container">
+        <!-- Selección de jornada -->
+        <div class="selector-jornada">
+          <label for="jornada-select">Jornada:</label>
+          <select id="jornada-select">
+            <option value="">Todas</option>
+            <option value="1">Jornada 1</option>
+            <option value="2">Jornada 2</option>
+          </select>
+        </div>
+
+        <!-- Contenedor de noticias -->
+        <section id="noticias-jornada">
+          <div id="noticias-container">Cargando noticias...</div>
+        </section>
+      </div>
+    </main>
+
+    <footer>LALIGA 25/26</footer>
+
+    <script src="./js/userSession.js"></script>
+    <script src="./js/loadNav.js"></script>
+    <script>
+      if (checkAuth()) {
+        function getUserId() {
+          const user = sessionStorage.getItem("currentUser");
+          if (!user) return null;
+          return JSON.parse(user).id;
+        }
+
+        async function cargarNoticias(jornada = "") {
+          const res = await fetch(
+            `/noticias${jornada ? "?jornada=" + jornada : ""}`
+          );
+          const noticias = await res.json();
+          const container = document.getElementById("noticias-container");
+
+          if (!noticias.length) {
+            container.innerHTML = "<p>No hay noticias disponibles.</p>";
+            return;
+          }
+
+          container.innerHTML = noticias
+            .map(
+              (n) => `
+        <div class="noticia-card" data-noticia-id="${
+          n.noticia_id
+        }" data-noticia-titulo="${n.titulo}" data-noticia-contenido="${
+                n.contenido
+              }" data-noticia-url="${n.url_fuente}" data-noticia-jornada="${
+                n.jornada
+              }">
+          <h4>${n.titulo}</h4>
+          <p>${n.contenido || "Sin contenido disponible."}</p>
+          ${
+            n.url_fuente
+              ? `<p><a href="${n.url_fuente}" target="_blank">Leer más</a></p>`
+              : ""
+          }
+
+          <!-- Contenedor de comentarios -->
+          <div class="comentarios" id="comentarios-noticia-${n.noticia_id}">
+            <p>Cargando comentarios...</p>
+          </div>
+
+          <!-- Formulario nuevo comentario -->
+          <form class="form-comentario" data-noticia-id="${n.noticia_id}">
+            <textarea name="texto" placeholder="Escribe un comentario..." required></textarea>
+            <button type="submit">Comentar</button>
+          </form>
+        </div>
+      `
+            )
+            .join("");
+
+          // Cargar comentarios para cada noticia
+          noticias.forEach((n) => cargarComentariosNoticia(n.noticia_id));
+
+          // Listeners a formularios de comentario de noticia
+          document.querySelectorAll(".form-comentario").forEach((form) => {
+            form.addEventListener("submit", async (e) => {
+              e.preventDefault();
+
+              const noticia_id = form.getAttribute("data-noticia-id");
+              const noticia_titulo = form.getAttribute("data-noticia-titulo");
+              const noticia_url = form.getAttribute("data-noticia-url");
+              const texto = form.querySelector("textarea").value;
+
+              const res = await fetch("/comentarios", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  usuario_id: getUserId(),
+                  noticia_id,
+                  texto,
+                }),
+              });
+
+              if (!res.ok) {
+                console.error("Error al guardar comentario de noticia");
+                return;
+              }
+
+              const data = await res.json();
+              const interaction_id = data.comentario_id;
+
+              window.dataLayer = window.dataLayer || [];
+              dataLayer.push({
+                event: "noticia.comment",
+                content: {
+                  content_id: noticia_id,
+                  content_type: "Noticia",
+                  title: noticia_titulo,
+                  url_noticia: noticia_url,
+                  interactions: {
+                    interaction_id: interaction_id,
+                    interaction_type: "Comment",
+                    text: texto,
+                  },
+                },
+              });
+
+              window.noticia_comment = {
+                content_id: noticia_id,
+                content_type: "Noticia",
+                title: noticia_titulo,
+                url_noticia: noticia_url,
+                interactions: {
+                  interaction_id: interaction_id,
+                  interaction_type: "Comment",
+                  text: texto,
+                },
+              };
+
+              form.reset();
+              cargarComentariosNoticia(noticia_id);
+            });
+          });
+        }
+
+        async function cargarComentariosNoticia(noticia_id) {
+          const res = await fetch(`/comentarios?noticia_id=${noticia_id}`);
+          const comentarios = await res.json();
+          const cont = document.getElementById(
+            `comentarios-noticia-${noticia_id}`
+          );
+
+          if (!comentarios.length) {
+            cont.innerHTML = "<p>No hay comentarios.</p>";
+            return;
+          }
+
+          cont.innerHTML = comentarios
+            .map(
+              (c) => `
+        <div class="comentario">
+          <strong>${c.usuario}</strong> 
+          <small>(${new Date(c.fecha_creacion).toLocaleString()})</small>
+          <p>${c.texto}</p>
+        </div>
+      `
+            )
+            .join("");
+        }
+
+        // Evento cambio de jornada
+        document
+          .getElementById("jornada-select")
+          .addEventListener("change", (e) => {
+            cargarNoticias(e.target.value);
+          });
+
+        // Cargar todas las noticias al inicio
+        cargarNoticias();
+      }
+    </script>
+  </body>
+</html>

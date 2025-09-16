@@ -1,0 +1,209 @@
+h2 {
+  margin-bottom: 20px;
+}
+
+/* Contenedor general */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+/* -------------------- Selector de jornada -------------------- */
+.selector-jornada {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  max-width: 300px;
+}
+
+label[for="jornada-select"] {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+#jornada-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#jornada-select:hover {
+  border-color: #0077ff;
+  box-shadow: 0 0 5px rgba(0, 119, 255, 0.3);
+}
+
+#jornada-select:focus {
+  outline: none;
+  border-color: #005fcc;
+  box-shadow: 0 0 6px rgba(0, 95, 204, 0.4);
+}
+
+/* -------------------- Grid de vídeos -------------------- */
+#videos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Tarjetas de vídeo */
+.video-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease-in-out;
+}
+
+.video-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.video-card h4 {
+  margin: 0 0 12px 0;
+  color: #222;
+}
+
+.video-thumbnail {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.video-thumbnail:hover {
+  transform: scale(1.03);
+}
+
+.btn-youtube {
+  display: inline-block;
+  background: #ff0000;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.btn-youtube:hover {
+  background: #cc0000;
+}
+
+/* -------------------- Grid de noticias -------------------- */
+#noticias-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Tarjetas de noticia */
+.noticia-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease-in-out;
+}
+
+.noticia-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.noticia-card p {
+  white-space: pre-wrap;
+}
+
+/* -------------------- Comentarios -------------------- */
+.comentarios {
+  background: #f9f9f9;
+  border-left: 3px solid #0077ff;
+  padding: 10px;
+  border-radius: 6px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.comentarios::-webkit-scrollbar {
+  width: 8px;
+}
+.comentarios::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.comentarios::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+.comentario {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.comentario strong {
+  color: #0077ff;
+}
+
+.comentario small {
+  color: #666;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+/* -------------------- Formulario de comentario -------------------- */
+.form-comentario {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-comentario textarea {
+  resize: none;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+.form-comentario button {
+  align-self: flex-end;
+  background: #0077ff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.form-comentario button:hover {
+  background: #005fcc;
+}
+
+/* -------------------- Responsive -------------------- */
+@media (max-width: 600px) {
+  #videos-container,
+  #noticias-container {
+    grid-template-columns: 1fr;
+  }
+}

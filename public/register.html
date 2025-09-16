@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Dev -->
+    <!-- <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/cc1a1cc5e9ee/launch-ebdeaa92800d-development.min.js"
+      async
+    ></script> -->
+    <!-- Prod -->
+    <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/5cab8540f52e/launch-2a635ffec2e6-development.min.js"
+      async
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Registro</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/register.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <div id="nav"></div>
+    </header>
+
+    <main>
+      <h2>Registro de Usuario</h2>
+
+      <form id="registerForm" class="form-box">
+        <input
+          type="text"
+          id="nombre"
+          placeholder="Nombre de usuario"
+          required
+        />
+        <input
+          type="email"
+          id="email"
+          placeholder="Correo electrónico"
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Contraseña"
+          required
+        />
+
+        <select id="equipo_favorito" name="equipo_favorito" required>
+          <option value="">Selecciona tu equipo</option>
+          <option value="Alavés">Alavés</option>
+          <option value="Athletic Club">Athletic Club</option>
+          <option value="Atlético de Madrid">Atlético de Madrid</option>
+          <option value="FC Barcelona">Barcelona</option>
+          <option value="Celta de Vigo">Celta de Vigo</option>
+          <option value="Elche">Elche</option>
+          <option value="Espanyol">Espanyol</option>
+          <option value="Getafe">Getafe</option>
+          <option value="Girona">Girona</option>
+          <option value="Levante">Levante</option>
+          <option value="Mallorca">Mallorca</option>
+          <option value="Rayo Vallecano">Rayo Vallecano</option>
+          <option value="Real Betis">Real Betis</option>
+          <option value="Real Madrid">Real Madrid</option>
+          <option value="Real Oviedo">Real Oviedo</option>
+          <option value="Real Sociedad">Real Sociedad</option>
+          <option value="Sevilla">Sevilla</option>
+          <option value="Valencia">Valencia</option>
+          <option value="Villarreal">Villarreal</option>
+        </select>
+
+        <select id="sexo" name="sexo" required>
+          <option value="">Selecciona tu género</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <input type="tel" id="telefono" placeholder="Teléfono" required />
+        <input type="date" id="cumpleaños" required />
+
+        <button type="submit">Registrar</button>
+      </form>
+
+      <p>
+        ¿Ya tienes cuenta?
+        <a href="login.html">Inicia sesión aquí</a>
+      </p>
+    </main>
+
+    <footer>LALIGA 25/26</footer>
+
+    <script>
+      if (document.getElementById("registerForm")) {
+        document
+          .getElementById("registerForm")
+          .addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById("nombre").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const equipo_favorito =
+              document.getElementById("equipo_favorito").value;
+            const sexo = document.getElementById("sexo").value;
+            const telefono = document.getElementById("telefono").value || null;
+            const cumpleaños = document.getElementById("cumpleaños").value;
+            console.log("Cumpleaños: ", cumpleaños, typeof cumpleaños);
+
+            try {
+              const res = await fetch(
+                "http://localhost:3000/usuarios/register",
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    nombre,
+                    email,
+                    password,
+                    equipo_favorito,
+                    sexo,
+                    telefono,
+                    cumpleaños,
+                  }),
+                }
+              );
+
+              const data = await res.json();
+
+              // Enviar perfil a AEP
+              const profileRes = await fetch(
+                "https://dcs.adobedc.net/collection/196cb1035b570383a91fdaa9e5a71111ba3c59515c199b0ed388ee5e39ed0100",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "x-adobe-flow-id": "bb9bd473-6835-4c6f-b03c-8f70c05fe445",
+                    "x-sandbox-name": "dev",
+                  },
+                  body: JSON.stringify({
+                    email: email,
+                    phone: telefono || "",
+                    birth_date: cumpleaños || "",
+                    crm_id: "CID_" + data.id,
+                    favorite_team: equipo_favorito || "",
+                    gender: sexo || "",
+                    username: nombre || "",
+                    _id:
+                      Math.random().toString(36).substring(2) +
+                      Date.now().toString(36),
+                  }),
+                }
+              );
+              console.log(await profileRes.json());
+
+              await alloy("sendEvent", {
+                xdm: {
+                  eventType: "user.register",
+                  identityMap: {
+                    CrmIdLaLiga: [
+                      {
+                        id: "CID_" + data.id,
+                        authenticatedState: "authenticated",
+                        primary: true,
+                      },
+                    ],
+                    EmailIdLaLiga: [
+                      {
+                        id: data.email.toLowerCase(),
+                        authenticatedState: "authenticated",
+                        primary: false,
+                      },
+                    ],
+                  },
+                },
+              })
+                .then((response) => {
+                  console.log("Evento enviado ✅", response);
+                })
+                .catch((err) => {
+                  console.error("Error enviando evento ❌", err);
+                });
+
+              window.location.href = "login.html";
+            } catch (err) {
+              console.error(err);
+              alert("❌ Error al registrar usuario");
+            }
+          });
+      }
+    </script>
+    <script src="./js/userSession.js"></script>
+    <script src="./js/loadNav.js"></script>
+  </body>
+</html>

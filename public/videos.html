@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Dev -->
+    <!-- <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/cc1a1cc5e9ee/launch-ebdeaa92800d-development.min.js"
+      async
+    ></script> -->
+    <!-- Prod -->
+    <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/5cab8540f52e/launch-2a635ffec2e6-development.min.js"
+      async
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Videos</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/videos.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <div id="nav"></div>
+    </header>
+    <main>
+      <h2>Vídeos</h2>
+      <div class="container">
+        <!-- Selección de jornada -->
+        <div class="selector-jornada">
+          <label for="jornada-select">Jornada:</label>
+          <select id="jornada-select">
+            <option value="">Todas</option>
+            <option value="1">Jornada 1</option>
+            <option value="2">Jornada 2</option>
+          </select>
+        </div>
+
+        <!-- Contenedor de videos -->
+        <section id="videos-jornada">
+          <div id="videos-container">Cargando videos...</div>
+        </section>
+      </div>
+    </main>
+
+    <footer>LALIGA 25/26</footer>
+
+    <script src="./js/userSession.js"></script>
+    <script src="./js/loadNav.js"></script>
+    <script>
+      if (checkAuth()) {
+        function getUserId() {
+          const user = sessionStorage.getItem("currentUser");
+          if (!user) return null;
+          return JSON.parse(user).id;
+        }
+        function getVideoId(url) {
+          const urlObj = new URL(url);
+          return urlObj.searchParams.get("v");
+        }
+        async function cargarVideos(jornada = "") {
+          const res = await fetch(
+            `/videos${jornada ? "?jornada=" + jornada : ""}`
+          );
+          const videos = await res.json();
+          const container = document.getElementById("videos-container");
+
+          if (!videos.length) {
+            container.innerHTML = "<p>No hay videos disponibles.</p>";
+            return;
+          }
+
+          container.innerHTML = videos
+            .map((v) => {
+              const videoId = getVideoId(v.url_video);
+              return `
+        <div class="video-card" data-video-id="${v.video_id}" data-video-titulo="${v.titulo}"
+          data-video-url="${v.url_video}" data-video-jornada="${v.jornada}" >
+          <h4>${v.titulo}</h4>
+
+          <!-- Miniatura que enlaza a YouTube -->
+          <a href="${v.url_video}" target="_blank">
+            <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg"
+                 alt="${v.titulo}" class="video-thumbnail">
+          </a>
+
+          <a href="${v.url_video}" target="_blank" class="btn-youtube">Ver en YouTube</a>
+
+          <!-- Contenedor de comentarios -->
+          <div class="comentarios" id="comentarios-${v.video_id}">
+            <p>Cargando comentarios...</p>
+          </div>
+
+          <!-- Formulario para nuevo comentario -->
+          <form class="form-comentario" data-video-id="${v.video_id}">
+            <textarea name="texto" placeholder="Escribe un comentario..." required></textarea>
+            <button type="submit">Comentar</button>
+          </form>
+        </div>
+      `;
+            })
+            .join("");
+
+          // Cargar comentarios
+          videos.forEach((v) => cargarComentarios(v.video_id));
+
+          // Listeners de formularios
+          document.querySelectorAll(".form-comentario").forEach((form) => {
+            form.addEventListener("submit", async (e) => {
+              e.preventDefault();
+
+              const card = form.closest(".video-card");
+              const video_id = form.getAttribute("data-video-id");
+              const video_titulo = card.getAttribute("data-video-titulo");
+              const url_video = card.getAttribute("data-video-url");
+              const jornada = card.getAttribute("data-video-jornada");
+              const texto = form.querySelector("textarea").value;
+
+              const res = await fetch("/comentarios", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  usuario_id: getUserId(),
+                  video_id,
+                  texto,
+                }),
+              });
+
+              if (!res.ok) {
+                console.error("Error al guardar comentario");
+                return;
+              }
+
+              const data = await res.json();
+              const interaction_id = data.comentario_id.toString();
+
+              window.dataLayer = window.dataLayer || [];
+              dataLayer.push({
+                event: "video.comment",
+                content: {
+                  content_id: video_id,
+                  content_type: "Video",
+                  title: video_titulo,
+                  url_video: url_video,
+                  jornada: jornada,
+                  interactions: {
+                    interaction_id: interaction_id,
+                    interaction_type: "Comment",
+                    text: texto,
+                  },
+                },
+              });
+
+              window.comment = {
+                content_id: video_id,
+                content_type: "Video",
+                title: video_titulo,
+                url_video: url_video,
+                jornada: jornada,
+                interactions: {
+                  interaction_id: interaction_id,
+                  interaction_type: "Comment",
+                  text: texto,
+                },
+              };
+
+              form.reset();
+              cargarComentarios(video_id);
+            });
+          });
+        }
+
+        async function cargarComentarios(video_id) {
+          const res = await fetch(`/comentarios?video_id=${Number(video_id)}`);
+          const comentarios = await res.json();
+          const cont = document.getElementById(
+            `comentarios-${Number(video_id)}`
+          );
+
+          if (!comentarios.length) {
+            cont.innerHTML = "<p>No hay comentarios.</p>";
+            return;
+          }
+
+          cont.innerHTML = comentarios
+            .map(
+              (c) => `
+        <div class="comentario">
+          <strong>${c.usuario}</strong> <small>(${new Date(
+                c.fecha_creacion
+              ).toLocaleString()})</small>
+          <p>${c.texto}</p>
+        </div>
+      `
+            )
+            .join("");
+        }
+
+        // Evento cambio de jornada
+        document
+          .getElementById("jornada-select")
+          .addEventListener("change", (e) => {
+            cargarVideos(e.target.value);
+          });
+
+        // Cargar todos los videos al inicio
+        cargarVideos();
+      }
+    </script>
+  </body>
+</html>

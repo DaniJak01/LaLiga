@@ -1,0 +1,16 @@
+{
+  "_valuelabemeaptrsd": {
+    "customer_info_laliga": {
+      "contact_info_laliga": {
+        "email": "usuario@example.com",
+        "phone": "+34123456789"
+      },
+      "birth_date": "1990-05-15",
+      "crm_id": "CID_12345",
+      "favorite_team": "FC Barcelona",
+      "gender": "Masculino",
+      "username": "usuario123"
+    }
+  },
+  "_id": ""
+}

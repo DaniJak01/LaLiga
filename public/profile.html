@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Dev -->
+    <!-- <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/cc1a1cc5e9ee/launch-ebdeaa92800d-development.min.js"
+      async
+    ></script> -->
+    <!-- Prod -->
+    <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/5cab8540f52e/launch-2a635ffec2e6-development.min.js"
+      async
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Perfil</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/cart.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <div id="nav"></div>
+    </header>
+    <main class="cart-container profile-container">
+      <div class="profile-card">
+        <img src="./images/user.png" alt="Usuario" class="profile-avatar" />
+        <h2 id="profileName">Usuario</h2>
+        <p id="profileEmail">correo@ejemplo.com</p>
+        <button id="logoutBtn">Cerrar Sesión</button>
+      </div>
+    </main>
+    <footer>LALIGA 25/26</footer>
+    <style>
+      .profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 20px;
+        background-color: #f5f5f5;
+      }
+
+      .profile-card {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 350px;
+        width: 100%;
+      }
+
+      .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+
+      .profile-card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+        color: #333;
+      }
+
+      .profile-card p {
+        font-size: 1rem;
+        color: #777;
+        margin-bottom: 20px;
+      }
+
+      #logoutBtn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #ff4d4f;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      #logoutBtn:hover {
+        background-color: #e04344;
+      }
+    </style>
+
+    <script>
+      const user = sessionStorage.getItem("currentUser");
+      if (user) {
+        const parsed = JSON.parse(user);
+        document.getElementById("profileName").textContent =
+          parsed.nombre || "Usuario";
+        document.getElementById("profileEmail").textContent =
+          parsed.email || "";
+      }
+
+      // Logout
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        sessionStorage.removeItem("currentUser");
+        window.location.href = "login.html";
+      });
+    </script>
+    <script src="./js/userSession.js"></script>
+    <script src="./js/loadNav.js"></script>
+  </body>
+</html>

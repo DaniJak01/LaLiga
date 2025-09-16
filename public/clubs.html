@@ -1,44 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <script
+    <!-- Dev -->
+    <!-- <script
       src="https://assets.adobedtm.com/7c43efc80d3e/cc1a1cc5e9ee/launch-ebdeaa92800d-development.min.js"
       async
+    ></script> -->
+    <!-- Prod -->
+    <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/5cab8540f52e/launch-2a635ffec2e6-development.min.js"
+      async
     ></script>
-    <!--Target's JavaScript SDK, at.js-->
-    <script src="at.js"></script>
-    <!--/at.js-->
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LALIGA | Clubs</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="clubs.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/clubs.css" />
   </head>
   <body>
     <header>
       <div class="title">
         <h1>LALIGA</h1>
       </div>
-      <nav>
-        <div class="nav-side-left"></div>
-        <div class="nav-center">
-          <a href="clubs.html" class="nav-link">Clubs</a>
-          <a href="index.html">
-            <img
-              width="60px"
-              src="./images/LALIGA_logo.png"
-              alt="LALIGA logotipo"
-              class="logo"
-            />
-          </a>
-          <a href="shop.html" class="nav-link">Tienda</a>
-        </div>
-        <div class="nav-side-right">
-          <a href="cart.html" class="cart">
-            <img width="40px" src="./images/carrito.png" alt="Carrito" />
-          </a>
-        </div>
-      </nav>
+      <div id="nav"></div>
     </header>
     <h2>Clubs 24/25</h2>
     <div class="clubs">
@@ -96,6 +79,11 @@
         <h3 class="club-name">Celta de Vigo</h3>
       </a>
 
+      <a href="club.html?team=elche" class="club">
+        <img src="./images/clubs/Elche.png" alt="Elche" class="club-logo" />
+        <h3 class="club-name">Elche</h3>
+      </a>
+
       <a href="club.html?team=espanyol" class="club">
         <img
           src="./images/clubs/Espanyol.png"
@@ -115,19 +103,24 @@
         <h3 class="club-name">Girona</h3>
       </a>
 
-      <a href="club.html?team=laspalmas" class="club">
+      <a href="club.html?team=levante" class="club">
+        <img src="./images/clubs/Levante.png" alt="Levante" class="club-logo" />
+        <h3 class="club-name">Levante</h3>
+      </a>
+
+      <!-- <a href="club.html?team=laspalmas" class="club">
         <img
           src="./images/clubs/LasPalmas.png"
           alt="Las Palmas"
           class="club-logo"
         />
         <h3 class="club-name">Las Palmas</h3>
-      </a>
+      </a> -->
 
-      <a href="club.html?team=leganes" class="club">
+      <!-- <a href="club.html?team=leganes" class="club">
         <img src="./images/clubs/Leganés.png" alt="Leganés" class="club-logo" />
         <h3 class="club-name">Leganés</h3>
-      </a>
+      </a> -->
 
       <a href="club.html?team=mallorca" class="club">
         <img
@@ -161,6 +154,15 @@
         <h3 class="club-name">Real Madrid</h3>
       </a>
 
+      <a href="club.html?team=realoviedo" class="club">
+        <img
+          src="./images/clubs/Oviedo.png"
+          alt="Real Oviedo"
+          class="club-logo"
+        />
+        <h3 class="club-name">Real Oviedo</h3>
+      </a>
+
       <a href="club.html?team=realsociedad" class="club">
         <img
           src="./images/clubs/RealS.png"
@@ -184,14 +186,14 @@
         <h3 class="club-name">Valencia</h3>
       </a>
 
-      <a href="club.html?team=valladolid" class="club">
+      <!-- <a href="club.html?team=valladolid" class="club">
         <img
           src="./images/clubs/Valladolid.png"
           alt="Real Valladolid"
           class="club-logo"
         />
         <h3 class="club-name">Real Valladolid</h3>
-      </a>
+      </a> -->
 
       <a href="club.html?team=villarreal" class="club">
         <img
@@ -202,14 +204,8 @@
         <h3 class="club-name">Villarreal</h3>
       </a>
     </div>
-    <footer>LALIGA 24/25</footer>
-    <script>
-      // Adobe Analytics: pageView
-      // var s = s_gi("ageo1xxlonprueba");
-      // s.pageName = "Clubs";
-      // s.channel = "Contenido";
-      // s.events = "";
-      // s.t();
-    </script>
+    <footer>LALIGA 25/26</footer>
+    <script src="./js/userSession.js"></script>
+    <script src="./js/loadNav.js"></script>
   </body>
 </html>

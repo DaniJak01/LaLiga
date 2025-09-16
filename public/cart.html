@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Dev -->
+    <!-- <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/cc1a1cc5e9ee/launch-ebdeaa92800d-development.min.js"
+      async
+    ></script> -->
+    <!-- Prod -->
+    <script
+      src="https://assets.adobedtm.com/7c43efc80d3e/5cab8540f52e/launch-2a635ffec2e6-development.min.js"
+      async
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LALIGA | Carrito</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/cart.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>LALIGA</h1>
+      </div>
+      <div id="nav"></div>
+    </header>
+    <main class="cart-container">
+      <h2>Tu Carrito</h2>
+      <div id="cart-items" class="cart-items"></div>
+
+      <div class="cart-summary">
+        <p id="total-price"><strong>Total:</strong> 0,00 €</p>
+        <div class="cart-buttons">
+          <a id="continue-shopping" href="shop.html">Seguir comprando</a>
+          <button id="checkout">Finalizar compra</button>
+        </div>
+      </div>
+    </main>
+    <footer>LALIGA 25/26</footer>
+    <script src="/js/cart.js"></script>
+    <script src="./js/userSession.js"></script>
+    <script src="./js/loadNav.js"></script>
+  </body>
+</html>
