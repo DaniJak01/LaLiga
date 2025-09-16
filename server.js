@@ -17,6 +17,10 @@ app.use("/noticias", noticiasRoutes);
 const comentariosRoutes = require("./routes/comentarios");
 app.use("/comentarios", comentariosRoutes);
 
-app.listen(3000, () => {
-  console.log("🚀 Servidor en http://localhost:3000");
+// app.listen(3000, () => {
+//   console.log("🚀 Servidor en http://localhost:3000");
+// });
+
+app.listen(3000, "0.0.0.0", () => {
+  console.log("🚀 Servidor en http://0.0.0.0:3000");
 });
