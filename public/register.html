@@ -110,22 +110,19 @@
             console.log("Cumpleaños: ", cumpleaños, typeof cumpleaños);
 
             try {
-              const res = await fetch(
-                "http://localhost:3000/usuarios/register",
-                {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    nombre,
-                    email,
-                    password,
-                    equipo_favorito,
-                    sexo,
-                    telefono,
-                    cumpleaños,
-                  }),
-                }
-              );
+              const res = await fetch("/usuarios/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  nombre,
+                  email,
+                  password,
+                  equipo_favorito,
+                  sexo,
+                  telefono,
+                  cumpleaños,
+                }),
+              });
 
               const data = await res.json();
 
