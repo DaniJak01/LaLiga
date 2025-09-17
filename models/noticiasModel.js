@@ -3,7 +3,7 @@ const db = require("../config/db");
 const Noticias = {
   listar: (jornada = null) =>
     new Promise((resolve, reject) => {
-      let sql = "SELECT * FROM noticias";
+      let sql = "SELECT * FROM Noticias";
       const params = [];
 
       if (jornada) {
@@ -21,7 +21,7 @@ const Noticias = {
   agregar: (jornada, titulo, contenido, url_fuente) =>
     new Promise((resolve, reject) => {
       db.query(
-        "INSERT INTO noticias (jornada, titulo, contenido, url_fuente) VALUES (?, ?, ?, ?)",
+        "INSERT INTO Noticias (jornada, titulo, contenido, url_fuente) VALUES (?, ?, ?, ?)",
         [jornada, titulo, contenido, url_fuente],
         (err, result) => (err ? reject(err) : resolve(result))
       );

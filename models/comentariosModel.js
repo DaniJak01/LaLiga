@@ -6,7 +6,7 @@ const Comentarios = {
       const columna = tipo === "noticia" ? "noticia_id" : "video_id";
       db.query(
         `SELECT c.comentario_id, c.texto, u.nombre AS usuario, c.fecha_creacion
-         FROM comentarios c
+         FROM Comentarios c
          JOIN usuarios u ON c.usuario_id = u.id
          WHERE c.${columna} = ?
          ORDER BY c.fecha_creacion DESC`,
@@ -19,7 +19,7 @@ const Comentarios = {
     new Promise((resolve, reject) => {
       const columna = tipo === "noticia" ? "noticia_id" : "video_id";
       db.query(
-        `INSERT INTO comentarios (usuario_id, ${columna}, texto, fecha_creacion)
+        `INSERT INTO Comentarios (usuario_id, ${columna}, texto, fecha_creacion)
          VALUES (?, ?, ?, NOW())`,
         [usuario_id, id, texto],
         (err, result) =>

@@ -3,7 +3,7 @@ const db = require("../config/db");
 const Videos = {
   listar: (jornada = null) =>
     new Promise((resolve, reject) => {
-      let sql = "SELECT * FROM videos";
+      let sql = "SELECT * FROM Videos";
       const params = [];
 
       if (jornada) {
@@ -21,7 +21,7 @@ const Videos = {
   agregar: (jornada, titulo, url_video) =>
     new Promise((resolve, reject) => {
       db.query(
-        "INSERT INTO videos (jornada, titulo, url_video) VALUES (?, ?, ?)",
+        "INSERT INTO Videos (jornada, titulo, url_video) VALUES (?, ?, ?)",
         [jornada, titulo, url_video],
         (err, result) => (err ? reject(err) : resolve(result))
       );
