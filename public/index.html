@@ -16,29 +16,20 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Llamada al Web SDK para pedir la oferta
         alloy("sendEvent", {
-          query: {
-            personalization: {
-              decisionScopes: ["LaLiga_Banner_Home"], // Scope = ID del div / Placement
-            },
+          personalization: {
+            decisionScopes: ["LaLiga_Banner_Home"],
           },
         })
-          .then(function (result) {
-            // Extraer el contenido HTML de la primera propuesta
+          .then((result) => {
             const content = result.propositions?.[0]?.items?.[0]?.data?.content;
-
             if (content) {
-              // Inyectar el HTML en el div correspondiente
               const container = document.getElementById("LaLiga_Banner_Home");
-              if (container) {
-                container.innerHTML = content;
-              }
+              if (container) container.innerHTML = content;
             } else {
               console.warn("No se recibió contenido de Offer Decisioning.");
             }
           })
-          .catch(function (err) {
-            console.error("Error al solicitar la oferta: ", err);
-          });
+          .catch((err) => console.error("Error al solicitar la oferta:", err));
       });
     </script>
     <meta charset="UTF-8" />
