@@ -11,6 +11,36 @@
       src="https://assets.adobedtm.com/7c43efc80d3e/5cab8540f52e/launch-2a635ffec2e6-development.min.js"
       async
     ></script>
+    <script>
+      // Esperar a que el DOM esté listo
+      document.addEventListener("DOMContentLoaded", function () {
+        // Llamada al Web SDK para pedir la oferta
+        alloy("sendEvent", {
+          query: {
+            personalization: {
+              decisionScopes: ["LaLiga_Banner_Home"], // Scope = ID del div / Placement
+            },
+          },
+        })
+          .then(function (result) {
+            // Extraer el contenido HTML de la primera propuesta
+            const content = result.propositions?.[0]?.items?.[0]?.data?.content;
+
+            if (content) {
+              // Inyectar el HTML en el div correspondiente
+              const container = document.getElementById("LaLiga_Banner_Home");
+              if (container) {
+                container.innerHTML = content;
+              }
+            } else {
+              console.warn("No se recibió contenido de Offer Decisioning.");
+            }
+          })
+          .catch(function (err) {
+            console.error("Error al solicitar la oferta: ", err);
+          });
+      });
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LALIGA</title>
