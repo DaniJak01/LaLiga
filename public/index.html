@@ -211,36 +211,5 @@
     <script src="/js/slider.js"></script>
     <script src="./js/userSession.js"></script>
     <script src="./js/loadNav.js"></script>
-    <script>
-      // Esperar a que el DOM esté listo
-      document.addEventListener("DOMContentLoaded", function () {
-        // Llamada al Web SDK (Alloy)
-        alloy("sendEvent", {
-          personalization: {
-            decisionScopes: ["LaLiga_Banner_Home"], // Aquí va el Decision Scope
-          },
-        })
-          .then(function (result) {
-            // Tomar el HTML de la Offer y renderizar en el div
-            var propositions = result.propositions;
-            var html = propositions?.[0]?.items?.[0]?.data?.content;
-
-            if (html) {
-              document.getElementById("LaLiga_Banner_Home").innerHTML = html;
-            } else {
-              // Fallback si no hay oferta
-              document.getElementById("LaLiga_Banner_Home").innerHTML = `
-            <div style="max-width:970px;margin:20px auto;background-color:#333;color:#fff;text-align:center;padding:30px 20px;border-radius:12px;">
-              <h2>Fallback Banner</h2>
-              <p>No hay ofertas activas disponibles.</p>
-            </div>
-          `;
-            }
-          })
-          .catch(function (err) {
-            console.error("Error al solicitar la oferta:", err);
-          });
-      });
-    </script>
   </body>
 </html>
