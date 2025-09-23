@@ -12,9 +12,15 @@
       async
     ></script>
     <script>
-      // Esperar a que el DOM esté listo
-      document.addEventListener("DOMContentLoaded", function () {
-        // Llamada al Web SDK para pedir la oferta
+      function waitForAlloy(callback) {
+        if (typeof alloy === "function") {
+          callback();
+        } else {
+          setTimeout(() => waitForAlloy(callback), 50);
+        }
+      }
+
+      waitForAlloy(() => {
         alloy("sendEvent", {
           personalization: {
             decisionScopes: ["LaLiga_Banner_Home"],
