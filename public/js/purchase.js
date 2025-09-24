@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const paymentSelect = document.getElementById("payment-method");
     const paymentMethod =
       paymentSelect.options[paymentSelect.selectedIndex].text;
+    const promoCode = document.getElementById("promo-code")?.value || "";
 
     const totalValue = parseFloat(
       document
@@ -228,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
       totalValue,
       items: cartItems,
       transactionId,
+      promoCode,
     };
 
     sessionStorage.setItem("resumenPedido", JSON.stringify(resumenPedido));
