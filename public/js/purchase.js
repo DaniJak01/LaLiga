@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const email = document.getElementById("email").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const province = document.getElementById("province").value;
+    const promoCode = document.getElementById("promo-code").value || "";
 
     window.shippingAddress = address;
 
@@ -139,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sessionStorage.setItem("email", email);
     sessionStorage.setItem("phone", phone);
     sessionStorage.setItem("province", province);
+    sessionStorage.setItem("promoCode", promoCode);
 
     stepShipping.style.display = "none";
     stepPayment.style.display = "flex";
