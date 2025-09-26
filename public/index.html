@@ -207,26 +207,5 @@
     <script src="/js/slider.js"></script>
     <script src="./js/userSession.js"></script>
     <script src="./js/loadNav.js"></script>
-    <script>
-      alloy("sendEvent", {
-        decisionScopes: ["#LaLiga_Banner_Home"],
-        xdm: {
-          web: {
-            webPageDetails: { URL: window.location.href },
-          },
-        },
-      }).then((result) => {
-        const propositions = result.propositions || [];
-
-        propositions.forEach((p) => {
-          p.items.forEach((item) => {
-            if (item.data && item.data.content) {
-              document.getElementById("LaLiga_Banner_Home").innerHTML =
-                item.data.content;
-            }
-          });
-        });
-      });
-    </script>
   </body>
 </html>
