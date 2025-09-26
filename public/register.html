@@ -107,7 +107,6 @@
             const sexo = document.getElementById("sexo").value;
             const telefono = document.getElementById("telefono").value || null;
             const cumpleaños = document.getElementById("cumpleaños").value;
-            console.log("Cumpleaños: ", cumpleaños, typeof cumpleaños);
 
             try {
               const res = await fetch("/usuarios/register", {
@@ -147,6 +146,9 @@
                     _id:
                       Math.random().toString(36).substring(2) +
                       Date.now().toString(36),
+                    isRegistered: true,
+                    cupon_bienvenida: "Activo",
+                    promo_video: "Inactivo",
                   }),
                 }
               );

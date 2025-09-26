@@ -6,5 +6,8 @@
   "favorite_team": "FC Barcelona",
   "gender": "Masculino",
   "username": "usuario100",
-  "_id": ""
+  "_id": "",
+  "isRegistered": true,
+  "cupon_bienvenida": "Activo",
+  "promo_video": "Inactivo"
 }

@@ -199,6 +199,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const cartItems = JSON.parse(sessionStorage.getItem("carrito")) || [];
 
+    // Detectar si el usuario usó el cupón de bienvenida
+    if (promoCode === "BIENVENIDA10") {
+      const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+      const crmId = "CID_" + currentUser.id;
+
+      fetch(
+        "https://dcs.adobedc.net/collection/196cb1035b570383a91fdaa9e5a71111ba3c59515c199b0ed388ee5e39ed0100",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-adobe-flow-id": "bb9bd473-6835-4c6f-b03c-8f70c05fe445",
+            "x-sandbox-name": "dev",
+          },
+          body: JSON.stringify({
+            crm_id: crmId,
+            cupon_bienvenida: "Usado",
+            promo_video: "Activo",
+          }),
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => console.log("Perfil actualizado ✅", data))
+        .catch((err) => console.error("Error actualizando perfil ❌", err));
+    }
+
     dataLayer.push({
       ecommerce: {
         transaction_id: transactionId,
