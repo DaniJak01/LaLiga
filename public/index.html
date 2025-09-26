@@ -52,6 +52,7 @@
     </header>
     <div id="LaLiga_Banner_Home"></div>
     <div id="banner"></div>
+    <div id="banner-container"></div>
     <main>
       <section class="history">
         <h2>Historia</h2>
@@ -208,5 +209,97 @@
     <script src="/js/slider.js"></script>
     <script src="./js/userSession.js"></script>
     <script src="./js/loadNav.js"></script>
+    <script>
+      // 1️⃣ Obtener ECID desde cookie
+      function getIdentityMap() {
+        const cookieAMCV = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("AMOrg"))
+          ?.split("|")[1];
+
+        if (!cookieAMCV) return {};
+
+        return {
+          ECID: [
+            {
+              id: cookieAMCV,
+              authenticatedState: "ambiguous",
+              primary: true,
+            },
+          ],
+        };
+      }
+
+      // 2️⃣ Manejar error
+      function displayError(err) {
+        console.error("Error fetching personalization:", err);
+      }
+
+      // 3️⃣ Manejar decisiones manualmente (opcional)
+      function handleDecisions(result) {
+        const { decisions = [], propositions = [] } = result;
+
+        // Enviar display events
+        decisions.forEach((decision) => {
+          alloy("sendEvent", {
+            xdm: {
+              eventType: "decisioning.propositionDisplay",
+              _experience: {
+                decisioning: {
+                  propositions: [decision],
+                  propositionEventType: { display: 1 },
+                },
+              },
+            },
+          });
+        });
+
+        // Aplicar proposición al banner
+        const proposition = propositions.find((p) =>
+          p.scope.endsWith("#LaLiga_Banner_Home")
+        );
+        if (!proposition) return;
+
+        const element = document.querySelector("#banner-container");
+        if (element && proposition.data.content) {
+          element.innerHTML = proposition.data.content;
+
+          // Enviar interact event al hacer click
+          element.addEventListener("click", () => {
+            alloy("sendEvent", {
+              xdm: {
+                eventType: "decisioning.propositionInteract",
+                _experience: {
+                  decisioning: {
+                    propositions: [proposition],
+                    propositionEventType: { interact: 1 },
+                    propositionAction: { label: "clicked" },
+                  },
+                },
+              },
+            });
+          });
+        }
+      }
+
+      // 4️⃣ Enviar page view y solicitar decisiones
+      function sendPageViewWithDecisions() {
+        alloy("sendEvent", {
+          type: "web.webpagedetails.pageViews",
+          xdm: {
+            identityMap: getIdentityMap(),
+          },
+          renderDecisions: true,
+          personalization: {
+            surfaces: ["#LaLiga_Banner_Home"],
+          },
+        })
+          .then(handleDecisions)
+          .catch(displayError);
+      }
+
+      // 5️⃣ Inicializar en DOMContentLoaded
+      document.addEventListener("DOMContentLoaded", sendPageViewWithDecisions);
+    </script>
   </body>
 </html>
