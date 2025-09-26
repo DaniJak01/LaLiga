@@ -51,6 +51,7 @@
       <div id="nav"></div>
     </header>
     <div id="LaLiga_Banner_Home"></div>
+    <div id="banner"></div>
     <main>
       <section class="history">
         <h2>Historia</h2>
@@ -207,5 +208,46 @@
     <script src="/js/slider.js"></script>
     <script src="./js/userSession.js"></script>
     <script src="./js/loadNav.js"></script>
+    <script>
+      // Haces el sendEvent normal
+      alloy("sendEvent", {
+        type: "web.webpagedetails.pageViews",
+        personalization: {
+          decisionScopes: ["#LaLiga_Banner_Home"], // 👈 aquí defines la surface
+        },
+        renderDecisions: false, // 👈 importante si quieres manejar tú el render
+      }).then((result) => {
+        // Buscamos la proposición del surface
+        const propositions = result.propositions || [];
+        const bannerProp = propositions.find((p) =>
+          p.scope.endsWith("#LaLiga_Banner_Home")
+        );
+
+        if (bannerProp && bannerProp.items.length > 0) {
+          const offerData = bannerProp.items[0].data.content[0];
+
+          // Renderizamos en el div #banner
+          document.getElementById("banner").innerHTML = `
+        <div style="padding:20px; background:#1c1c1c; color:#fff; text-align:center; border-radius:8px;">
+          <h2>Oferta: ${offerData.itemName}</h2>
+          <p>Prioridad: ${offerData.itemPriority}</p>
+          <button>Ver más</button>
+        </div>
+      `;
+
+          // ⚡ Mandamos el evento de "display" para tracking
+          alloy("sendEvent", {
+            xdm: {
+              eventType: "decisioning.propositionDisplay",
+              _experience: {
+                decisioning: {
+                  propositions: [bannerProp],
+                },
+              },
+            },
+          });
+        }
+      });
+    </script>
   </body>
 </html>
