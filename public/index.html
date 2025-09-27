@@ -182,5 +182,53 @@
     <script src="/js/slider.js"></script>
     <script src="./js/userSession.js"></script>
     <script src="./js/loadNav.js"></script>
+    <script>
+      // 1️⃣ Llamamos a Alloy (Web SDK) con un page view + fetch de decisiones
+      alloy("sendEvent", {
+        type: "web.webpagedetails.pageViews",
+        xdm: {
+          web: {
+            webPageDetails: {
+              name: "Home",
+              URL: window.location.href,
+            },
+          },
+        },
+        renderDecisions: false, // controlamos manualmente el render
+        personalization: {
+          decisionScopes: ["web://34.175.62.23/#LaLiga_Banner_Home"],
+        },
+      })
+        .then((result) => {
+          console.log("PageView + Proposition fetch:", result);
+
+          // 2️⃣ Aquí definimos nuestro HTML de ejemplo
+          const htmlContent = `<p style="color:red; font-weight:bold;">¡Oferta Especial LaLiga!</p>`;
+
+          // 3️⃣ Aplicamos el HTML en el banner
+          const bannerElement = document.getElementById("LaLiga_Banner_Home");
+          if (bannerElement) {
+            bannerElement.innerHTML = htmlContent;
+          }
+
+          // 4️⃣ Si quieres enviar un display event a AJO para tracking:
+          if (result.propositions && result.propositions.length > 0) {
+            result.propositions.forEach((proposition) => {
+              alloy("sendEvent", {
+                xdm: {
+                  eventType: "decisioning.propositionDisplay",
+                  _experience: {
+                    decisioning: {
+                      propositions: [proposition],
+                      propositionEventType: { display: 1 },
+                    },
+                  },
+                },
+              });
+            });
+          }
+        })
+        .catch((err) => console.error("Error fetching personalization:", err));
+    </script>
   </body>
 </html>
