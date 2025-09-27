@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let cartItems = JSON.parse(sessionStorage.getItem("carrito")) || [];
 
     if (cartItems.length === 0) {
-      window.location.href = "index.html";
+      window.location.href = "/";
       return;
     }
 
