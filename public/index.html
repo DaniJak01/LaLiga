@@ -182,5 +182,37 @@
     <script src="/js/slider.js"></script>
     <script src="./js/userSession.js"></script>
     <script src="./js/loadNav.js"></script>
+    <script>
+      alloy("sendEvent", {
+        type: "web.webpagedetails.pageViews", // esto es tu pageView
+        xdm: {
+          web: {
+            webPageDetails: {
+              name: "Home",
+              URL: window.location.href,
+            },
+          },
+        },
+        renderDecisions: false, // ⚠️ importante, solo si quieres controlar el render
+        personalization: {
+          decisionScopes: ["web://34.175.62.23/#LaLiga_Banner_Home"],
+        },
+      }).then((result) => {
+        console.log("PageView + Proposition fetch:", result);
+
+        // aquí ya tienes propositions devueltas
+        if (result.propositions) {
+          alloy("applyPropositions", {
+            propositions: result.propositions,
+            metadata: {
+              "web://34.175.62.23/#LaLiga_Banner_Home": {
+                selector: "#LaLiga_Banner_Home",
+                actionType: "setHTML",
+              },
+            },
+          });
+        }
+      });
+    </script>
   </body>
 </html>
