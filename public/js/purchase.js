@@ -204,6 +204,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
       if (currentUser && currentUser.id) {
         const crmId = "CID_" + currentUser.id;
+        sessionStorage.setItem("cupon_bienvenida", "Usado");
+        sessionStorage.setItem("promo_video", "Activo");
 
         fetch(
           "https://dcs.adobedc.net/collection/196cb1035b570383a91fdaa9e5a71111ba3c59515c199b0ed388ee5e39ed0100",

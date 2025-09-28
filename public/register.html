@@ -154,6 +154,10 @@
               );
               console.log(await profileRes.json());
 
+              sessionStorage.setItem("isRegistered", "true");
+              sessionStorage.setItem("cupon_bienvenida", "Activo");
+              sessionStorage.setItem("promo_video", "Inactivo");
+
               await alloy("sendEvent", {
                 xdm: {
                   eventType: "user.register",
