@@ -7,7 +7,7 @@ const Comentarios = {
       db.query(
         `SELECT c.comentario_id, c.texto, u.nombre AS usuario, c.fecha_creacion
          FROM Comentarios c
-         JOIN usuarios u ON c.usuario_id = u.id
+         JOIN Usuarios u ON c.usuario_id = u.id
          WHERE c.${columna} = ?
          ORDER BY c.fecha_creacion DESC`,
         [id],
