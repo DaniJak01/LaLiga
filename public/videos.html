@@ -80,12 +80,14 @@
           <h4>${v.titulo}</h4>
 
           <!-- Miniatura que enlaza a YouTube -->
-          <a href="${v.url_video}" target="_blank">
+          <a href="${v.url_video}" target="_blank" onclick="handleVideoClick(event, '${v.url_video}')">
             <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg"
-                 alt="${v.titulo}" class="video-thumbnail">
+             alt="${v.titulo}" class="video-thumbnail">
           </a>
 
-          <a href="${v.url_video}" target="_blank" class="btn-youtube">Ver en YouTube</a>
+          <a href="${v.url_video}" target="_blank" class="btn-youtube" onclick="handleVideoClick(event, '${v.url_video}')">
+            Ver en YouTube
+          </a>
 
           <!-- Contenedor de comentarios -->
           <div class="comentarios" id="comentarios-${v.video_id}">
@@ -206,6 +208,42 @@
 
         // Cargar todos los videos al inicio
         cargarVideos();
+      }
+    </script>
+    <script>
+      function handleVideoClick(event, videoUrl) {
+        event.preventDefault(); // evita abrir el link inmediatamente
+
+        // Actualizar sessionStorage
+        var currentUserStr = sessionStorage.getItem("currentUser");
+        var crmId = currentUserStr
+          ? "CID_" + JSON.parse(currentUserStr).id
+          : null;
+
+        sessionStorage.setItem("promo_video", "Realizada");
+
+        // Payload para AEP
+        var payload = {
+          crm_id: crmId,
+          promo_video: "Realizada",
+        };
+
+        // Enviar a AEP
+        fetch(
+          "https://dcs.adobedc.net/collection/196cb1035b5c199b0ed388ee5e39ed0100",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-adobe-flow-id": "bb9bd473-6870c05fe445",
+              "x-sandbox-name": "dev",
+            },
+            body: JSON.stringify(payload),
+          }
+        ).finally(function () {
+          // Abrir la pestaña de YouTube al final
+          window.open(videoUrl, "_blank");
+        });
       }
     </script>
   </body>
