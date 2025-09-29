@@ -181,5 +181,74 @@
     <script src="/js/slider.js"></script>
     <script src="./js/userSession.js"></script>
     <script src="./js/loadNav.js"></script>
+    <script>
+      // Recuperar valores de sessionStorage
+      const isRegistered = sessionStorage.getItem("isRegistered");
+      const cuponBienvenida = sessionStorage.getItem("cupon_bienvenida");
+      const promoVideo = sessionStorage.getItem("promo_video");
+
+      // Contenedor del banner
+      const bannerElement = document.getElementById("LaLiga_Banner_Home");
+
+      // HTML de los banners
+      const banners = {
+        LaLiga_Nuevas_Funcionalidades_v2: `
+      <div style="max-width: 970px; margin: 20px auto; background-color: #1c1c1c; 
+                  color: #ffffff; text-align: center; padding: 30px 20px; 
+                  border-radius: 12px; font-family: Arial, sans-serif;">
+        <h2 style="font-size: 2em; margin: 0 0 15px 0;"> 
+          ¡Descubre nuestras <span style="color: #e30613;">nuevas funcionalidades</span>! 
+        </h2>
+        <p style="font-size: 1em; margin: 0 0 20px 0;"> 
+          Solo para <strong>usuarios registrados</strong>. Comenta, ve videos y mantente al día con las noticias. 
+        </p>
+        <a href="/videos.html" style="display: inline-block; background-color: #e30613; 
+                  color: #ffffff; padding: 12px 25px; text-decoration: none; 
+                  font-size: 1em; border-radius: 8px;"> Ver ahora </a>
+      </div>
+    `,
+        LaLiga_Bienvenida10_v2: `
+      <div style="max-width: 970px; margin: 20px auto; background-color: #1c1c1c; 
+                  color: #ffffff; text-align: center; padding: 30px 20px; 
+                  border-radius: 12px; font-family: Arial, sans-serif;">
+        <h2 style="font-size: 2em; margin: 0 0 15px 0;">
+          Tienes un <span style="color: #e30613;">10% activo</span>
+        </h2>
+        <p style="font-size: 1em; margin: 0 0 20px 0;">
+          Aprovéchalo en tu próxima compra
+        </p>
+        <a href="/shop.html" style="display: inline-block; background-color: #e30613; 
+                  color: #ffffff; padding: 12px 25px; text-decoration: none; 
+                  font-size: 1em; border-radius: 8px;"> Usar cupón </a>
+      </div>
+    `,
+        LaLiga_Oferta_Video_v2: `
+      <div style="max-width: 970px; margin: 20px auto; background-color: #1c1c1c; 
+                  color: #ffffff; text-align: center; padding: 30px 20px; 
+                  border-radius: 12px; font-family: Arial, sans-serif;">
+        <h2 style="font-size: 2em; margin: 0 0 15px 0;"> 
+          ¡Ve un vídeo y llévate un <span style="color: #e30613;">20%</span>! 
+        </h2>
+        <p style="font-size: 1em; margin: 0 0 20px 0;">
+          Aprovecha esta oferta exclusiva para tu próxima compra
+        </p>
+        <a href="/shop.html" style="display: inline-block; background-color: #e30613; 
+                  color: #ffffff; padding: 12px 25px; text-decoration: none; 
+                  font-size: 1em; border-radius: 8px;"> Ir a la tienda </a>
+      </div>
+    `,
+      };
+
+      // Lógica de decisión
+      if (!isRegistered) {
+        bannerElement.innerHTML = banners.LaLiga_Nuevas_Funcionalidades_v2;
+      } else if (cuponBienvenida === "Activo") {
+        bannerElement.innerHTML = banners.LaLiga_Bienvenida10_v2;
+      } else if (promoVideo === "Activo") {
+        bannerElement.innerHTML = banners.LaLiga_Oferta_Video_v2;
+      } else {
+        bannerElement.innerHTML = ""; // No mostrar nada
+      }
+    </script>
   </body>
 </html>
