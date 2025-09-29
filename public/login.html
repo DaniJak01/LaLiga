@@ -102,6 +102,9 @@
                   console.error("Error enviando evento login ❌", err);
                 });
 
+              // Pequeño delay antes de redirigir
+              await new Promise((resolve) => setTimeout(resolve, 500));
+
               window.location.href = "/";
             } catch (err) {
               console.error("Error:", err);
@@ -110,6 +113,7 @@
           });
       }
     </script>
+
     <script src="./js/userSession.js"></script>
     <script src="./js/loadNav.js"></script>
   </body>
