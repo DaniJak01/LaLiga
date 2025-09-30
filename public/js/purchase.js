@@ -208,14 +208,23 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.setItem("promo_video", "Activo");
 
         fetch(
-          "https://dcs.adobedc.net/collection/196cb1035b570383a91fdaa9e5a71111ba3c59515c199b0ed388ee5e39ed0100",
+          // "https://dcs.adobedc.net/collection/196cb1035b570383a91fdaa9e5a71111ba3c59515c199b0ed388ee5e39ed0100",
+          // {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //     "x-adobe-flow-id": "bb9bd473-6835-4c6f-b03c-8f70c05fe445",
+          //     "x-sandbox-name": "dev",
+          //   },
+          "https://dcs.adobedc.net/collection/1244f22861fe36ab7029962859a30038bc345c0638e6a8997a8ba8529194f354",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "x-adobe-flow-id": "bb9bd473-6835-4c6f-b03c-8f70c05fe445",
+              "x-adobe-flow-id": "14d902cc-1092-475c-aa92-fcb6a5b51432",
               "x-sandbox-name": "dev",
             },
+
             body: JSON.stringify({
               crm_id: crmId,
               cupon_bienvenida: "Usado",
